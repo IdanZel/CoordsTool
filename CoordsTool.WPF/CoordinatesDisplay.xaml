@@ -12,22 +12,27 @@
     <UserControl.Resources>
         <system:Boolean x:Key="True">True</system:Boolean>
         <local:MinecraftCoordinatesToStringConverter x:Key="CoordinatesConverter"></local:MinecraftCoordinatesToStringConverter>
+
         <DataTemplate x:Key="OverworldCoordinates">
             <StackPanel Orientation="Horizontal">
                 <Image Width="15" Height="15" Source="/Resources/grass-block.png" />
                 <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}}" FontSize="13" />
                 <Image Width="15" Height="15" Source="/Resources/netherrack.png" />
-                <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" FontSize="13" />
+                <Label FontSize="13"
+                       Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" />
             </StackPanel>
         </DataTemplate>
+
         <DataTemplate x:Key="NetherCoordinates">
             <StackPanel Orientation="Horizontal">
                 <Image Width="15" Height="15" Source="/Resources/netherrack.png" />
                 <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}}" FontSize="13" />
                 <Image Width="15" Height="15" Source="/Resources/grass-block.png" />
-                <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" FontSize="13" />
+                <Label FontSize="13"
+                       Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" />
             </StackPanel>
         </DataTemplate>
+
         <DataTemplate x:Key="EndCoordinates">
             <StackPanel Orientation="Horizontal">
                 <Image Width="15" Height="15" Source="/Resources/end-stone.png" />
@@ -35,18 +40,24 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
+
     <Grid>
         <ContentPresenter Content="{Binding}">
             <ContentPresenter.Style>
                 <Style TargetType="ContentPresenter">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Coordinates.Dimension}" Value="{x:Static coordinates:MinecraftDimension.Overworld}">
+                        <DataTrigger Binding="{Binding Coordinates.Dimension}"
+                                     Value="{x:Static coordinates:MinecraftDimension.Overworld}">
                             <Setter Property="ContentTemplate" Value="{StaticResource OverworldCoordinates}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Coordinates.Dimension}" Value="{x:Static coordinates:MinecraftDimension.Nether}">
+
+                        <DataTrigger Binding="{Binding Coordinates.Dimension}"
+                                     Value="{x:Static coordinates:MinecraftDimension.Nether}">
                             <Setter Property="ContentTemplate" Value="{StaticResource NetherCoordinates}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Coordinates.Dimension}" Value="{x:Static coordinates:MinecraftDimension.End}">
+
+                        <DataTrigger Binding="{Binding Coordinates.Dimension}"
+                                     Value="{x:Static coordinates:MinecraftDimension.End}">
                             <Setter Property="ContentTemplate" Value="{StaticResource EndCoordinates}" />
                         </DataTrigger>
                     </Style.Triggers>

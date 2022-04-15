@@ -13,15 +13,14 @@
         <GridLength x:Key="TypeColumnWidth">5*</GridLength>
         <GridLength x:Key="TimeColumnWidth">10*</GridLength>
         <GridLength x:Key="ButtonsColumnWidth">4*</GridLength>
+
         <Style TargetType="RadioButton">
             <Style.Triggers>
                 <Trigger Property="IsChecked" Value="True">
                     <Setter Property="BorderThickness" Value="1" />
                 </Trigger>
             </Style.Triggers>
-
             <Setter Property="BorderThickness" Value="0" />
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
@@ -62,6 +61,7 @@
                     <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
                     <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
                 </Grid.ColumnDefinitions>
+
                 <local:GridTableCell Grid.Column="0" IsHeader="True" CellContent="Coordinates" />
                 <local:GridTableCell Grid.Column="1" IsHeader="True" CellContent="Label" />
                 <local:GridTableCell Grid.Column="2" IsHeader="True" CellContent="Type" />
@@ -79,6 +79,7 @@
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Height="30">
@@ -89,6 +90,7 @@
                                 <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
                             </Grid.ColumnDefinitions>
+
                             <local:GridTableCell Grid.Column="0" Coordinates="{Binding Coordinates}"
                                                  CellContentType="Coordinates" />
                             <local:GridTableCell Grid.Column="1" CellContent="{Binding Label}" />
@@ -115,10 +117,12 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label Content="Label" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
                 <TextBox x:Name="LabelTextBox" Width="250" Margin="5,0,0,0" />
             </StackPanel>
+
             <Button Margin="0,10,0,0" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates" />
         </StackPanel>
     </Grid>

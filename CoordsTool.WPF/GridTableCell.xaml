@@ -18,6 +18,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
         <Style x:Key="BottomBorder" TargetType="Border">
             <Setter Property="BorderBrush" Value="#888" />
             <Setter Property="BorderThickness" Value="0,0,0,1" />
@@ -28,11 +29,13 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
         <Style TargetType="Button">
             <Setter Property="Width" Value="20" />
             <Setter Property="Height" Value="20" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="3,0,0,0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -48,27 +51,31 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <DataTemplate x:Key="LabelContent">
             <Label Content="{Binding CellContent, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    FontSize="13" />
         </DataTemplate>
+
         <DataTemplate x:Key="CoordinatesContent">
             <StackPanel Orientation="Horizontal">
                 <local:CoordinatesDisplay
                     Coordinates="{Binding Coordinates, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             </StackPanel>
         </DataTemplate>
+
         <DataTemplate x:Key="ButtonsContent">
             <StackPanel Orientation="Horizontal">
-                <Button Width="22" Height="22" Margin="3,0,0,0" BorderThickness="0" Background="Transparent" Click="OnEdit">
+                <Button Background="Transparent" Click="OnEdit">
                     <Image Source="/Resources/edit-button.png" />
                 </Button>
-                <Button Width="22" Height="22" Margin="3,0,0,0" BorderThickness="0" Background="Transparent" Click="OnDelete">
+                <Button Background="Transparent" Click="OnDelete">
                     <Image Source="/Resources/delete-button.png" />
                 </Button>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
+
     <Grid>
         <Border Style="{StaticResource RightBorder}" />
         <Border Style="{StaticResource BottomBorder}" />
