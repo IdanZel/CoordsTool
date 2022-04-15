@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using CoordsTool.Core.Coordinates;
 using CoordsTool.Core.IO;
@@ -225,6 +226,14 @@ namespace CoordsTool.WPF
         private void ReadFromClipboardUnchecked(object sender, RoutedEventArgs e)
         {
             _clipboardMonitor.Disable();
+        }
+
+        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnSaveCoordinates(sender, e);
+            }
         }
     }
 }
