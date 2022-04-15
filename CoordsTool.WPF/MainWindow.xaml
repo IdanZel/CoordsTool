@@ -1,0 +1,125 @@
+﻿<Window x:Class="CoordsTool.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoordsTool.WPF"
+        mc:Ignorable="d"
+        Title="Coords Tool" Height="400" Width="700"
+        Background="#222" MinHeight="300">
+    <Window.Resources>
+        <GridLength x:Key="CoordinatesColumnWidth">22*</GridLength>
+        <GridLength x:Key="LabelColumnWidth">11*</GridLength>
+        <GridLength x:Key="TypeColumnWidth">5*</GridLength>
+        <GridLength x:Key="TimeColumnWidth">10*</GridLength>
+        <GridLength x:Key="ButtonsColumnWidth">4*</GridLength>
+        <Style TargetType="RadioButton">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+
+            <Setter Property="BorderThickness" Value="0" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="White" Background="Transparent" Width="25" Height="25"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Image Width="20" Height="20"
+                                   Source="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="110" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5,0,0">
+            <CheckBox Margin="0,8,0,0" IsChecked="True" Checked="ReadFromClipboardChecked"
+                      Unchecked="ReadFromClipboardUnchecked" />
+            <Label Content="Automatically add coordinates from clipboard" FontSize="14" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource CoordinatesColumnWidth}" />
+                    <ColumnDefinition Width="{StaticResource LabelColumnWidth}" />
+                    <ColumnDefinition Width="{StaticResource TypeColumnWidth}" />
+                    <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
+                    <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
+                </Grid.ColumnDefinitions>
+                <local:GridTableCell Grid.Column="0" IsHeader="True" CellContent="Coordinates" />
+                <local:GridTableCell Grid.Column="1" IsHeader="True" CellContent="Label" />
+                <local:GridTableCell Grid.Column="2" IsHeader="True" CellContent="Type" />
+                <local:GridTableCell Grid.Column="3" IsHeader="True" CellContent="Time" />
+                <local:GridTableCell Grid.Column="4" IsHeader="True" IsEdge="True" />
+            </Grid>
+
+            <ItemsControl x:Name="CoordinatesTable" Grid.Row="1" ItemsSource="{Binding CoordinatesList}"
+                          d:DataContext="{d:DesignInstance local:MainWindow}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer Padding="{TemplateBinding Padding}"
+                                      VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource CoordinatesColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource LabelColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource TypeColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
+                            </Grid.ColumnDefinitions>
+                            <local:GridTableCell Grid.Column="0" Coordinates="{Binding Coordinates}"
+                                                 CellContentType="Coordinates" />
+                            <local:GridTableCell Grid.Column="1" CellContent="{Binding Label}" />
+                            <local:GridTableCell Grid.Column="2" CellContent="{Binding Type}" />
+                            <local:GridTableCell Grid.Column="3"
+                                                 CellContent="{Binding TimeAdded, StringFormat=dd/MM/yyyy HH:mm}" />
+                            <local:GridTableCell Grid.Column="4" IsEdge="True" CellContentType="Buttons"
+                                                 Edit="OnEditCoordinates" Delete="OnDeleteCoordinates" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Coordinates" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
+                <TextBox x:Name="CoordinatesTextBox" Width="250" Margin="5,0,0,0" />
+                <Border x:Name="DimensionButtonsBorder" Margin="5,0,0,0" BorderBrush="Transparent" BorderThickness="2">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="OverworldRadioButton" Content="/Resources/grass-block.png" />
+                        <RadioButton x:Name="NetherRadioButton" Content="/Resources/netherrack.png" />
+                        <RadioButton x:Name="EndRadioButton" Content="/Resources/end-stone.png" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="Label" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
+                <TextBox x:Name="LabelTextBox" Width="250" Margin="5,0,0,0" />
+            </StackPanel>
+            <Button Margin="0,10,0,0" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates" />
+        </StackPanel>
+    </Grid>
+</Window>

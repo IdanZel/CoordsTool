@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <Company>IdanZel</Company>
+        <Product>CoordsTool</Product>
+        <AssemblyName>CoordsTool</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CoordsTool.Core\CoordsTool.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include=".\Resources\grass-block.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\netherrack.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\end-stone.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\edit-button.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\delete-button.png" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+
+</Project>

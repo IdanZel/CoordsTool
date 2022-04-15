@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="CoordsTool.WPF.GridTableCell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CoordsTool.WPF"
+             mc:Ignorable="d"
+             d:DesignHeight="30" d:DesignWidth="100"
+             Background="Transparent" d:DataContext="{d:DesignInstance local:GridTableCell}">
+    <UserControl.Resources>
+        <Style x:Key="RightBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="0,0,1,0" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEdge, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             Value="true">
+                    <Setter Property="BorderThickness" Value="0,0,0,0" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BottomBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#888" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHeader, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             Value="true">
+                    <Setter Property="BorderBrush" Value="White" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" Value="1" TargetName="Border" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="LabelContent">
+            <Label Content="{Binding CellContent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   FontSize="13" />
+        </DataTemplate>
+        <DataTemplate x:Key="CoordinatesContent">
+            <StackPanel Orientation="Horizontal">
+                <local:CoordinatesDisplay
+                    Coordinates="{Binding Coordinates, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ButtonsContent">
+            <StackPanel Orientation="Horizontal">
+                <Button Width="22" Height="22" Margin="3,0,0,0" BorderThickness="0" Background="Transparent" Click="OnEdit">
+                    <Image Source="/Resources/edit-button.png" />
+                </Button>
+                <Button Width="22" Height="22" Margin="3,0,0,0" BorderThickness="0" Background="Transparent" Click="OnDelete">
+                    <Image Source="/Resources/delete-button.png" />
+                </Button>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Border Style="{StaticResource RightBorder}" />
+        <Border Style="{StaticResource BottomBorder}" />
+        <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <ContentPresenter.Style>
+                <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding CellContentType, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Value="{x:Static local:CellContentType.Label}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource LabelContent}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding CellContentType, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Value="{x:Static local:CellContentType.Coordinates}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource CoordinatesContent}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding CellContentType, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Value="{x:Static local:CellContentType.Buttons}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource ButtonsContent}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentPresenter.Style>
+        </ContentPresenter>
+    </Grid>
+</UserControl>
