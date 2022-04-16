@@ -194,5 +194,23 @@ namespace CoordsTool.WPF
             // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
             CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
         }
+
+        private void OnClickMinimize(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void OnClickExit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OnTitleBarMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
     }
 }

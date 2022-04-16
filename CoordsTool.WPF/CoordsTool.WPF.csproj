@@ -22,6 +22,8 @@
         <Resource Include=".\Resources\delete-button.png" CopyToOutputDirectory="Always" />
         <Resource Include=".\Resources\settings-button.png" CopyToOutputDirectory="Always" />
         <Resource Include=".\Resources\ok.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\exit-button.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\minimize.png" CopyToOutputDirectory="Always" />
     </ItemGroup>
 
 </Project>
