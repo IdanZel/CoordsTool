@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using CoordsTool.Core.Coordinates;
 using CoordsTool.Core.IO;
 using CoordsTool.Core.UserData;
+using static CoordsTool.WPF.MinecraftCoordinatesToStringConverter;
 
 namespace CoordsTool.WPF
 {
@@ -29,10 +31,11 @@ namespace CoordsTool.WPF
             InitializeComponent();
             DataContext = this;
 
-            _settings = UserDataFileManager.ReadSettings();
-
             var coordinatesList = UserDataFileManager.ReadCoordinatesList();
             CoordinatesList = new ObservableCollection<UserCoordinates>(coordinatesList);
+
+            _settings = UserDataFileManager.ReadSettings();
+            UpdateSettings();
         }
 
         protected override void OnClosed(EventArgs e)
@@ -183,6 +186,13 @@ namespace CoordsTool.WPF
             {
                 _clipboardMonitor.Disable();
             }
+
+            UseChunkCoordinates[MinecraftDimension.Overworld] = _settings.UseChunkCoordinatesOverworld;
+            UseChunkCoordinates[MinecraftDimension.Nether] = _settings.UseChunkCoordinatesNether;
+            UseChunkCoordinates[MinecraftDimension.End] = _settings.UseChunkCoordinatesEnd;
+
+            // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
+            CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
         }
     }
 }
