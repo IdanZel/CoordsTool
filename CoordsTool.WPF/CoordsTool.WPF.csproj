@@ -16,14 +16,38 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include=".\Resources\grass-block.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\netherrack.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\end-stone.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\delete-button.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\settings-button.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\ok.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\exit-button.png" CopyToOutputDirectory="Always" />
-        <Resource Include=".\Resources\minimize.png" CopyToOutputDirectory="Always" />
+      <None Remove="Resources\Buttons\settings.png" />
+      <Resource Include="Resources\Buttons\settings.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Textures\end-stone.png" />
+      <Resource Include="Resources\Textures\end-stone.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Buttons\exit.png" />
+      <Resource Include="Resources\Buttons\exit.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Buttons\delete.png" />
+      <Resource Include="Resources\Buttons\delete.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Textures\grass-block.png" />
+      <Resource Include="Resources\Textures\grass-block.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Buttons\ok.png" />
+      <Resource Include="Resources\Buttons\ok.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Buttons\minimize.png" />
+      <Resource Include="Resources\Buttons\minimize.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Textures\netherrack.png" />
+      <Resource Include="Resources\Textures\netherrack.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

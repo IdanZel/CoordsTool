@@ -68,13 +68,13 @@
                 <!-- Minimize button -->
                 <Button Style="{StaticResource WindowButton}" Margin="0,4,4,0" Background="#333" Foreground="#555"
                         Click="OnClickMinimize">
-                    <Image Width="14" Height="14" Source="/Resources/minimize.png" />
+                    <Image Width="14" Height="14" Source="/Resources/Buttons/minimize.png" />
                 </Button>
 
                 <!-- Exit button -->
                 <Button Style="{StaticResource WindowButton}" Margin="0,4,4,0" Background="DarkRed" Foreground="Red"
                         Click="OnClickExit">
-                    <Image Width="16" Height="16" Source="/Resources/exit-button.png" />
+                    <Image Width="16" Height="16" Source="/Resources/Buttons/exit.png" />
                 </Button>
             </StackPanel>
         </Grid>
@@ -175,7 +175,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Width="18" Height="18" Style="{StaticResource ImageButton}" Click="OnDeleteCoordinates">
-                                <Image Source="/Resources/delete-button.png" />
+                                <Image Source="/Resources/Buttons/delete.png" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -205,9 +205,9 @@
                 <!-- Dimension selection -->
                 <Border x:Name="DimensionButtonsBorder" Margin="5,0,0,0" BorderBrush="Transparent" BorderThickness="2">
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton x:Name="OverworldRadioButton" Content="/Resources/grass-block.png" />
-                        <RadioButton x:Name="NetherRadioButton" Content="/Resources/netherrack.png" />
-                        <RadioButton x:Name="EndRadioButton" Content="/Resources/end-stone.png" />
+                        <RadioButton x:Name="OverworldRadioButton" Content="/Resources/Textures/grass-block.png" />
+                        <RadioButton x:Name="NetherRadioButton" Content="/Resources/Textures/netherrack.png" />
+                        <RadioButton x:Name="EndRadioButton" Content="/Resources/Textures/end-stone.png" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -224,7 +224,7 @@
 
         <Button Grid.Row="2" Width="40" Height="40" Margin="10,0,0,10" Style="{StaticResource ImageButton}"
                 VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="OnSettingsButtonClick">
-            <Image Source="/Resources/settings-button.png" />
+            <Image Source="/Resources/Buttons/settings.png" />
         </Button>
     </Grid>
 </Window>

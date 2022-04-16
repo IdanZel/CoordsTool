@@ -15,9 +15,9 @@
 
         <DataTemplate x:Key="OverworldCoordinates">
             <StackPanel Orientation="Horizontal">
-                <Image Width="15" Height="15" Source="/Resources/grass-block.png" />
+                <Image Width="15" Height="15" Source="/Resources/Textures/grass-block.png" />
                 <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}}" FontSize="13" />
-                <Image Width="15" Height="15" Source="/Resources/netherrack.png" />
+                <Image Width="15" Height="15" Source="/Resources/Textures/netherrack.png" />
                 <Label FontSize="13"
                        Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" />
             </StackPanel>
@@ -25,9 +25,9 @@
 
         <DataTemplate x:Key="NetherCoordinates">
             <StackPanel Orientation="Horizontal">
-                <Image Width="15" Height="15" Source="/Resources/netherrack.png" />
+                <Image Width="15" Height="15" Source="/Resources/Textures/netherrack.png" />
                 <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}}" FontSize="13" />
-                <Image Width="15" Height="15" Source="/Resources/grass-block.png" />
+                <Image Width="15" Height="15" Source="/Resources/Textures/grass-block.png" />
                 <Label FontSize="13"
                        Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}, ConverterParameter={StaticResource True}}" />
             </StackPanel>
@@ -35,7 +35,7 @@
 
         <DataTemplate x:Key="EndCoordinates">
             <StackPanel Orientation="Horizontal">
-                <Image Width="15" Height="15" Source="/Resources/end-stone.png" />
+                <Image Width="15" Height="15" Source="/Resources/Textures/end-stone.png" />
                 <Label Content="{Binding Coordinates, Converter={StaticResource CoordinatesConverter}}" FontSize="13" />
             </StackPanel>
         </DataTemplate>

@@ -55,11 +55,11 @@
                 </Style>
             </StackPanel.Resources>
 
-            <CheckBox Margin="0,0,3,0" Content="/Resources/grass-block.png"
+            <CheckBox Margin="0,0,3,0" Content="/Resources/Textures/grass-block.png"
                       IsChecked="{Binding UseChunkCoordinatesOverworld}" />
-            <CheckBox Margin="0,0,3,0" Content="/Resources/netherrack.png"
+            <CheckBox Margin="0,0,3,0" Content="/Resources/Textures/netherrack.png"
                       IsChecked="{Binding UseChunkCoordinatesNether}" />
-            <CheckBox Content="/Resources/end-stone.png" IsChecked="{Binding UseChunkCoordinatesEnd}" />
+            <CheckBox Content="/Resources/Textures/end-stone.png" IsChecked="{Binding UseChunkCoordinatesEnd}" />
             <Label Content="Use chunk coordinates" FontSize="14" />
         </StackPanel>
 
@@ -67,7 +67,7 @@
         <Button Grid.Row="1" Style="{StaticResource WindowButton}" Margin="0,0,4,4" 
                 VerticalAlignment="Bottom" HorizontalAlignment="Right"
                 Background="Green" Foreground="LimeGreen" Click="OnClickOK">
-            <Image Margin="1,1,0,0" Width="14" Height="14" Source="/Resources/ok.png" />
+            <Image Margin="1,1,0,0" Width="14" Height="14" Source="/Resources/Buttons/ok.png" />
         </Button>
     </Grid>
 </Window>
