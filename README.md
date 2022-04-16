@@ -43,6 +43,12 @@ You can display chunk coordinates instead of regular coordinates. This setting i
 To enable this, open the settings, and select for which dimensions you would like to display chunk coordinates (a white border around the dimension image means that dimension is selected).
 You can disable this by de-selecting the dimensions.
 
-
+---
 
 #### If you experience any bugs or problems when using this tool, please open an issue detailing the problem.
+
+---
+
+The code in this repo isn't very well-designed due to my lack of experience with WPF and related design patterns.
+Many things were done in a "just make it work" fashion.
+If you have any suggestions or corrections, feel free to open an issue.
