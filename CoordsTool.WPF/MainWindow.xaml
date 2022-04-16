@@ -178,9 +178,24 @@
 
         <!-- Bottom row: Manual input (coordinates and label) -->
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Width" Value="90" />
+                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                </Style>
+                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                    <Setter Property="Width" Value="250" />
+                    <Setter Property="Margin" Value="5,0,0,0" />
+                </Style>
+            </StackPanel.Resources>
+
+            <!-- Coordinates input -->
             <StackPanel Orientation="Horizontal">
-                <Label Content="Coordinates" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
-                <TextBox x:Name="CoordinatesTextBox" Width="250" Margin="5,0,0,0" KeyDown="OnTextBoxKeyDown" />
+                <Label Content="Coordinates" />
+                <TextBox x:Name="CoordinatesTextBox" KeyDown="OnTextBoxKeyDown" />
+
+                <!-- Dimension selection -->
                 <Border x:Name="DimensionButtonsBorder" Margin="5,0,0,0" BorderBrush="Transparent" BorderThickness="2">
                     <StackPanel Orientation="Horizontal">
                         <RadioButton x:Name="OverworldRadioButton" Content="/Resources/grass-block.png" />
@@ -192,8 +207,8 @@
 
             <!-- Label input -->
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                <Label Content="Label" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
-                <TextBox x:Name="LabelTextBox" Width="250" Margin="5,0,0,0" KeyDown="OnTextBoxKeyDown" />
+                <Label Content="Label" />
+                <TextBox x:Name="LabelTextBox" KeyDown="OnTextBoxKeyDown" />
             </StackPanel>
 
             <!-- Save button -->
