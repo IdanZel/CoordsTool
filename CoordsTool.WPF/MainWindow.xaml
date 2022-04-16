@@ -8,12 +8,6 @@
         Title="Coords Tool" Height="400" Width="700"
         Background="#222" MinHeight="300">
     <Window.Resources>
-        <GridLength x:Key="CoordinatesColumnWidth">22*</GridLength>
-        <GridLength x:Key="LabelColumnWidth">11*</GridLength>
-        <GridLength x:Key="TypeColumnWidth">5*</GridLength>
-        <GridLength x:Key="TimeColumnWidth">10*</GridLength>
-        <GridLength x:Key="ButtonsColumnWidth">4*</GridLength>
-
         <Style TargetType="RadioButton">
             <Style.Triggers>
                 <Trigger Property="IsChecked" Value="True">
@@ -47,63 +41,127 @@
             <Label Content="Automatically add coordinates from clipboard" FontSize="14" />
         </StackPanel>
 
-        <Grid Grid.Row="1" Margin="10,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <DataGrid x:Name="CoordinatesTable" Grid.Row="1" Margin="10,5" Background="#222" BorderThickness="0"
+                  CanUserReorderColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"
+                  VerticalGridLinesBrush="White" HorizontalGridLinesBrush="#888"
+                  RowHeaderWidth="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                  ItemsSource="{Binding CoordinatesList}" d:DataContext="{d:DesignInstance local:MainWindow}">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Padding" Value="5,0,0,5" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="BorderBrush" Value="White" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="13" />
+                </Style>
 
-            <Grid Grid.Row="0" Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{StaticResource CoordinatesColumnWidth}" />
-                    <ColumnDefinition Width="{StaticResource LabelColumnWidth}" />
-                    <ColumnDefinition Width="{StaticResource TypeColumnWidth}" />
-                    <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
-                    <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
-                </Grid.ColumnDefinitions>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding" Value="3,5,0,5" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
 
-                <local:GridTableCell Grid.Column="0" IsHeader="True" CellContent="Coordinates" />
-                <local:GridTableCell Grid.Column="1" IsHeader="True" CellContent="Label" />
-                <local:GridTableCell Grid.Column="2" IsHeader="True" CellContent="Type" />
-                <local:GridTableCell Grid.Column="3" IsHeader="True" CellContent="Time" />
-                <local:GridTableCell Grid.Column="4" IsHeader="True" IsEdge="True" />
-            </Grid>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
 
-            <ItemsControl x:Name="CoordinatesTable" Grid.Row="1" ItemsSource="{Binding CoordinatesList}"
-                          d:DataContext="{d:DesignInstance local:MainWindow}">
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <ScrollViewer Padding="{TemplateBinding Padding}"
-                                      VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
+                <Style x:Key="InnerColumnHeader" TargetType="DataGridColumnHeader"
+                       BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                    <Setter Property="BorderThickness" Value="0,0,1,1" />
+                </Style>
+            </DataGrid.Resources>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="30">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource CoordinatesColumnWidth}" />
-                                <ColumnDefinition Width="{StaticResource LabelColumnWidth}" />
-                                <ColumnDefinition Width="{StaticResource TypeColumnWidth}" />
-                                <ColumnDefinition Width="{StaticResource TimeColumnWidth}" />
-                                <ColumnDefinition Width="{StaticResource ButtonsColumnWidth}" />
-                            </Grid.ColumnDefinitions>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="22*" Header="Coordinates" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource InnerColumnHeader}">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="Padding" Value="0"></Setter>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <local:CoordinatesDisplay
+                                    Coordinates="{Binding Coordinates, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                            <local:GridTableCell Grid.Column="0" Coordinates="{Binding Coordinates}"
-                                                 CellContentType="Coordinates" />
-                            <local:GridTableCell Grid.Column="1" CellContent="{Binding Label}" />
-                            <local:GridTableCell Grid.Column="2" CellContent="{Binding Type}" />
-                            <local:GridTableCell Grid.Column="3"
-                                                 CellContent="{Binding TimeAdded, StringFormat=dd/MM/yyyy HH:mm}" />
-                            <local:GridTableCell Grid.Column="4" IsEdge="True" CellContentType="Buttons"
-                                                 Edit="OnEditCoordinates" Delete="OnDeleteCoordinates" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
+                <DataGridTextColumn Width="11*" Header="Label" HeaderStyle="{StaticResource InnerColumnHeader}"
+                                    Binding="{Binding Label}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="CaretBrush" Value="White" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Width="5*" Header="Type" IsReadOnly="True"
+                                    HeaderStyle="{StaticResource InnerColumnHeader}" Binding="{Binding Type}" />
+
+                <DataGridTextColumn Width="10*" Header="Time" IsReadOnly="True"
+                                    HeaderStyle="{StaticResource InnerColumnHeader}"
+                                    Binding="{Binding TimeAdded, StringFormat=dd/MM/yyyy HH:mm}" />
+
+                <DataGridTemplateColumn Width="2*" Header="" IsReadOnly="True" CanUserResize="False">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="Margin" Value="0,0,-1,0"></Setter>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Background="Transparent" Click="OnDeleteCoordinates">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Width" Value="18" />
+                                        <Setter Property="Height" Value="18" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderThickness" Value="1" TargetName="Border" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <Image Source="/Resources/delete-button.png" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">

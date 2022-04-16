@@ -41,12 +41,13 @@ namespace CoordsTool.WPF
 
         private void AutoScrollCoordinatesTable()
         {
-            if (VisualTreeHelper.GetChildrenCount(CoordinatesTable) == 0)
+            if (VisualTreeHelper.GetChildrenCount(CoordinatesTable) == 0 || 
+                VisualTreeHelper.GetChild(CoordinatesTable, 0) is not Border border)
             {
                 return;
             }
 
-            var scrollViewer = VisualTreeHelper.GetChild(CoordinatesTable, 0) as ScrollViewer;
+            var scrollViewer = VisualTreeHelper.GetChild(border, 0) as ScrollViewer;
             scrollViewer?.ScrollToEnd();
         }
 
@@ -170,43 +171,14 @@ namespace CoordsTool.WPF
             border.ClearValue(BorderBrushProperty);
         }
 
-        private void OnEditCoordinates(object sender, RoutedEventArgs e)
-        {
-            if (e.OriginalSource is not GridTableCell { DataContext: UserCoordinates coordinates })
-            {
-                return;
-            }
-
-            CoordinatesTextBox.Text = coordinates.Coordinates.ToString();
-            SetSelectedDimension(coordinates.Coordinates.Dimension);
-
-            SetCoordinatesEditingIsEnabled(false);
-
-            LabelTextBox.Text = coordinates.Label;
-
-            _currentEditedCoordinates = coordinates;
-        }
-
         private void OnDeleteCoordinates(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is not GridTableCell { DataContext: UserCoordinates coordinates })
+            if (sender is not Button { DataContext: UserCoordinates coordinates })
             {
                 return;
             }
 
             CoordinatesList.Remove(coordinates);
-        }
-
-        private void SetSelectedDimension(MinecraftDimension dimension)
-        {
-            var dimensionButton = dimension switch
-            {
-                MinecraftDimension.Overworld => OverworldRadioButton,
-                MinecraftDimension.Nether => NetherRadioButton,
-                MinecraftDimension.End or _ => EndRadioButton
-            };
-
-            dimensionButton.IsChecked = true;
         }
 
         private void SetCoordinatesEditingIsEnabled(bool isEnabled)
