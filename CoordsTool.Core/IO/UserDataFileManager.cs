@@ -5,8 +5,11 @@ namespace CoordsTool.Core.IO;
 
 public static class UserDataFileManager
 {
-    private const string UserDataFilePath = "UserData.json";
-    private const string UserSettingsFilePath = "UserSettings.json";
+    private static readonly string UserDataFolderPath =
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CoordsTool");
+
+    private static readonly string UserDataFilePath = Path.Combine(UserDataFolderPath, "UserData.json");
+    private static readonly string UserSettingsFilePath = Path.Combine(UserDataFolderPath, "UserSettings.json");
 
     public static List<UserCoordinates> ReadCoordinatesList()
     {
@@ -21,6 +24,8 @@ public static class UserDataFileManager
 
     public static void WriteCoordinatesList(List<UserCoordinates> coordinatesList)
     {
+        CreateUserDataFolderIfNotExists();
+
         var data = JsonSerializer.Serialize(coordinatesList);
         File.WriteAllText(UserDataFilePath, data);
     }
@@ -38,7 +43,17 @@ public static class UserDataFileManager
 
     public static void WriteSettings(UserSettings settings)
     {
+        CreateUserDataFolderIfNotExists();
+
         var data = JsonSerializer.Serialize(settings);
         File.WriteAllText(UserSettingsFilePath, data);
+    }
+
+    private static void CreateUserDataFolderIfNotExists()
+    {
+        if (!Directory.Exists(UserDataFolderPath))
+        {
+            Directory.CreateDirectory(UserDataFolderPath);
+        }
     }
 }
