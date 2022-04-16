@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoordsTool.WPF"
         mc:Ignorable="d"
-        Title="Coords Tool" Height="400" Width="640"
+        Title="Coords Tool" Height="360" Width="640"
         Background="#222" MinHeight="300" MinWidth="450">
     <Window.Resources>
         <Style TargetType="RadioButton">
@@ -135,7 +135,7 @@
                 <!-- Time column -->
                 <DataGridTextColumn Width="5*" Header="Time" IsReadOnly="True"
                                     HeaderStyle="{StaticResource InnerColumnHeader}"
-                                    Binding="{Binding TimeAdded, StringFormat=dd/MM/yyyy HH:mm}" />
+                                    Binding="{Binding TimeAdded, StringFormat=HH:mm dd/MM/yyyy}" />
 
                 <!-- Delete button column -->
                 <DataGridTemplateColumn Width="1*" Header="" IsReadOnly="True" CanUserResize="False">
