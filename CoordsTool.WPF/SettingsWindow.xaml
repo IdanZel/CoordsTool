@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:CoordsTool.WPF"
         xmlns:userData="clr-namespace:CoordsTool.Core.UserData;assembly=CoordsTool.Core"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="120" Width="350"
-        Background="#222" ResizeMode="NoResize" WindowStyle="ToolWindow"
+        Title="SettingsWindow" Height="80" Width="350" MouseDown="OnMouseDown"
+        Background="#222" BorderBrush="White" BorderThickness="1" ResizeMode="NoResize" WindowStyle="None"
         d:DataContext="{d:DesignInstance userData:UserSettings}">
     <Grid>
         <Grid.Resources>
@@ -23,11 +23,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- "Read from clipboard" checkbox -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0">
             <CheckBox IsChecked="{Binding ShouldReadFromClipboard}" />
             <Label Content="Automatically add coordinates from clipboard" FontSize="14" />
         </StackPanel>
 
+        <!-- "Use chunk coordinates" checkboxes (for each dimension) -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,10">
             <StackPanel.Resources>
                 <!-- This style is very similar to the radio button style in MainWindow -->
@@ -60,5 +62,31 @@
             <CheckBox Content="/Resources/end-stone.png" IsChecked="{Binding UseChunkCoordinatesEnd}" />
             <Label Content="Use chunk coordinates" FontSize="14" />
         </StackPanel>
+
+        <!-- OK button -->
+        <Button Grid.Row="1" Width="20" Height="20" Margin="0,0,4,4" 
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Background="Green" BorderThickness="0" Click="OnClickOK">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LimeGreen" TargetName="Border" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
+            <Image Margin="1,1,0,0" Width="14" Height="14" Source="/Resources/ok.png" />
+        </Button>
     </Grid>
 </Window>
