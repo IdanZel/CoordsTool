@@ -17,6 +17,7 @@ namespace CoordsTool.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly UserSettings _settings;
         private readonly ClipboardMonitor _clipboardMonitor;
 
         public ObservableCollection<UserCoordinates> CoordinatesList { get; }
@@ -28,12 +29,16 @@ namespace CoordsTool.WPF
             InitializeComponent();
             DataContext = this;
 
-            CoordinatesList = new ObservableCollection<UserCoordinates>(UserDataFileManager.ReadCoordinatesList());
+            _settings = UserDataFileManager.ReadSettings();
+
+            var coordinatesList = UserDataFileManager.ReadCoordinatesList();
+            CoordinatesList = new ObservableCollection<UserCoordinates>(coordinatesList);
         }
 
         protected override void OnClosed(EventArgs e)
         {
             UserDataFileManager.WriteCoordinatesList(new List<UserCoordinates>(CoordinatesList));
+            UserDataFileManager.WriteSettings(_settings);
 
             base.OnClosed(e);
         }
@@ -152,21 +157,31 @@ namespace CoordsTool.WPF
             CoordinatesList.Remove(coordinates);
         }
 
-        private void ReadFromClipboardChecked(object sender, RoutedEventArgs e)
-        {
-            _clipboardMonitor.Enable();
-        }
-
-        private void ReadFromClipboardUnchecked(object sender, RoutedEventArgs e)
-        {
-            _clipboardMonitor.Disable();
-        }
-
         private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 OnSaveCoordinates(sender, e);
+            }
+        }
+
+        private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
+        {
+            var settingsWindow = new SettingsWindow(_settings);
+            settingsWindow.ShowDialog();
+
+            UpdateSettings();
+        }
+
+        private void UpdateSettings()
+        {
+            if (_settings.ShouldReadFromClipboard)
+            {
+                _clipboardMonitor.Enable();
+            }
+            else
+            {
+                _clipboardMonitor.Disable();
             }
         }
     }

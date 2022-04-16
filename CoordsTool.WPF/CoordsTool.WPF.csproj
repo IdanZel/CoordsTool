@@ -20,6 +20,7 @@
         <Resource Include=".\Resources\netherrack.png" CopyToOutputDirectory="Always" />
         <Resource Include=".\Resources\end-stone.png" CopyToOutputDirectory="Always" />
         <Resource Include=".\Resources\delete-button.png" CopyToOutputDirectory="Always" />
+        <Resource Include=".\Resources\settings-button.png" CopyToOutputDirectory="Always" />
     </ItemGroup>
 
 </Project>
