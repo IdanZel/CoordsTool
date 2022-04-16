@@ -18,7 +18,6 @@ namespace CoordsTool.WPF
     public partial class MainWindow : Window
     {
         private readonly ClipboardMonitor _clipboardMonitor;
-        private UserCoordinates? _currentEditedCoordinates;
 
         public ObservableCollection<UserCoordinates> CoordinatesList { get; }
 
@@ -74,45 +73,16 @@ namespace CoordsTool.WPF
 
         private void OnSaveCoordinates(object sender, RoutedEventArgs e)
         {
-            if (_currentEditedCoordinates is not null)
-            {
-                ChangeUserCoordinatesLabel();
-            }
-            else if (!TryAddUserCoordinates())
-            {
-                return;
-            }
-
-            CoordinatesTextBox.Clear();
-            LabelTextBox.Clear();
-        }
-
-        private void ChangeUserCoordinatesLabel()
-        {
-            var currentEditedCoordinatesIndex = CoordinatesList.IndexOf(_currentEditedCoordinates!);
-
-            _currentEditedCoordinates!.Label = LabelTextBox.Text;
-
-            CoordinatesList.Remove(_currentEditedCoordinates);
-            CoordinatesList.Insert(currentEditedCoordinatesIndex, _currentEditedCoordinates);
-
-            SetCoordinatesEditingIsEnabled(true);
-
-            _currentEditedCoordinates = null;
-        }
-
-        private bool TryAddUserCoordinates()
-        {
             if (!TryGetSelectedDimension(out var dimension))
             {
                 SignalInvalid(DimensionButtonsBorder);
-                return false;
+                return;
             }
 
             if (!InputParser.TryParseManualInput(CoordinatesTextBox.Text, dimension, out var coordinates))
             {
                 SignalInvalid(CoordinatesTextBox);
-                return false;
+                return;
             }
 
             CoordinatesList.Add(new UserCoordinates
@@ -125,7 +95,8 @@ namespace CoordsTool.WPF
 
             AutoScrollCoordinatesTable();
 
-            return true;
+            CoordinatesTextBox.Clear();
+            LabelTextBox.Clear();
         }
 
         private bool TryGetSelectedDimension(out MinecraftDimension dimension)
@@ -179,15 +150,6 @@ namespace CoordsTool.WPF
             }
 
             CoordinatesList.Remove(coordinates);
-        }
-
-        private void SetCoordinatesEditingIsEnabled(bool isEnabled)
-        {
-            CoordinatesTextBox.IsEnabled = isEnabled;
-
-            OverworldRadioButton.IsEnabled = isEnabled;
-            NetherRadioButton.IsEnabled = isEnabled;
-            EndRadioButton.IsEnabled = isEnabled;
         }
 
         private void ReadFromClipboardChecked(object sender, RoutedEventArgs e)
