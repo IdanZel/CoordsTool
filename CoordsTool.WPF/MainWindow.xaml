@@ -18,6 +18,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
+                        <!-- Replaces the radio button with an image -->
                         <Border BorderBrush="White" Background="Transparent" Width="25" Height="25"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <Image Width="20" Height="20"
@@ -35,12 +36,14 @@
             <RowDefinition Height="110" />
         </Grid.RowDefinitions>
 
+        <!-- Top row: "read from clipboard" checkbox -->
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5,0,0">
             <CheckBox Margin="0,8,0,0" IsChecked="True" Checked="ReadFromClipboardChecked"
                       Unchecked="ReadFromClipboardUnchecked" />
             <Label Content="Automatically add coordinates from clipboard" FontSize="14" />
         </StackPanel>
 
+        <!-- Middle row: Main content - Coordinates table -->
         <DataGrid x:Name="CoordinatesTable" Grid.Row="1" Margin="10,5" Background="#222" BorderThickness="0"
                   CanUserReorderColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"
                   VerticalGridLinesBrush="White" HorizontalGridLinesBrush="#888"
@@ -65,6 +68,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <!-- A workaround for applying padding to cells: https://stackoverflow.com/a/5247078 -->
                                 <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
                                         Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
@@ -86,6 +90,7 @@
             </DataGrid.Resources>
 
             <DataGrid.Columns>
+                <!-- Coordinates column -->
                 <DataGridTemplateColumn Width="22*" Header="Coordinates" IsReadOnly="True"
                                         HeaderStyle="{StaticResource InnerColumnHeader}">
                     <DataGridTemplateColumn.CellStyle>
@@ -93,7 +98,7 @@
                             <Setter Property="Padding" Value="0"></Setter>
                         </Style>
                     </DataGridTemplateColumn.CellStyle>
-                    
+
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -104,6 +109,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <!-- Label column -->
                 <DataGridTextColumn Width="11*" Header="Label" HeaderStyle="{StaticResource InnerColumnHeader}"
                                     Binding="{Binding Label}">
                     <DataGridTextColumn.EditingElementStyle>
@@ -116,16 +122,20 @@
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
 
+                <!-- Type column -->
                 <DataGridTextColumn Width="5*" Header="Type" IsReadOnly="True"
                                     HeaderStyle="{StaticResource InnerColumnHeader}" Binding="{Binding Type}" />
 
+                <!-- Time column -->
                 <DataGridTextColumn Width="10*" Header="Time" IsReadOnly="True"
                                     HeaderStyle="{StaticResource InnerColumnHeader}"
                                     Binding="{Binding TimeAdded, StringFormat=dd/MM/yyyy HH:mm}" />
 
+                <!-- Delete button column -->
                 <DataGridTemplateColumn Width="2*" Header="" IsReadOnly="True" CanUserResize="False">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <!-- A hack for removing the border at the right edge of the grid: https://stackoverflow.com/a/27395182 -->
                             <Setter Property="Margin" Value="0,0,-1,0"></Setter>
                         </Style>
                     </DataGridTemplateColumn.CellStyle>
@@ -143,11 +153,13 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type Button}">
                                                     <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center" />
                                                     </Border>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="BorderThickness" Value="1" TargetName="Border" />
+                                                            <Setter Property="BorderThickness" Value="1"
+                                                                    TargetName="Border" />
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -155,6 +167,7 @@
                                         </Setter>
                                     </Style>
                                 </Button.Style>
+
                                 <Image Source="/Resources/delete-button.png" />
                             </Button>
                         </DataTemplate>
@@ -163,6 +176,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!-- Bottom row: Manual input (coordinates and label) -->
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Coordinates" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
@@ -176,11 +190,13 @@
                 </Border>
             </StackPanel>
 
+            <!-- Label input -->
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label Content="Label" FontSize="14" Width="90" HorizontalContentAlignment="Right" />
                 <TextBox x:Name="LabelTextBox" Width="250" Margin="5,0,0,0" KeyDown="OnTextBoxKeyDown" />
             </StackPanel>
 
+            <!-- Save button -->
             <Button Margin="0,10,0,0" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates" />
         </StackPanel>
     </Grid>
