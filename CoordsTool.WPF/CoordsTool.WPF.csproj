@@ -7,9 +7,12 @@
         <UseWPF>true</UseWPF>
         <Company>IdanZel</Company>
         <Product>CoordsTool</Product>
-        <AssemblyVersion>1.0.2</AssemblyVersion>
+        <AssemblyVersion>1.0.3</AssemblyVersion>
         <AssemblyName>$(Product)-$(AssemblyVersion)</AssemblyName>
         <ApplicationIcon>Resources\Icons\map-icon.ico</ApplicationIcon>
+        <PublishSingleFile>True</PublishSingleFile>
+        <EnableCompressionInSingleFile>True</EnableCompressionInSingleFile>
+        <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
     <ItemGroup>
