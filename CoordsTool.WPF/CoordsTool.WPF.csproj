@@ -7,8 +7,8 @@
         <UseWPF>true</UseWPF>
         <Company>IdanZel</Company>
         <Product>CoordsTool</Product>
-        <AssemblyName>CoordsTool</AssemblyName>
         <AssemblyVersion>1.0.1</AssemblyVersion>
+        <AssemblyName>$(Product)-$(AssemblyVersion)</AssemblyName>
         <ApplicationIcon>Resources\Icons\map-icon.ico</ApplicationIcon>
     </PropertyGroup>
 
