@@ -24,12 +24,14 @@ public class MinecraftCoordinatesToStringConverter : IValueConverter
 
         var convertDimension = parameter as bool? ?? false;
 
-        return ConvertCoordinates(coordinates, convertDimension);
+        return ConvertCoordinates(coordinates, convertDimension).ToString();
     }
 
     private MinecraftCoordinates ConvertCoordinates(MinecraftCoordinates coordinates, bool convertDimension)
     {
-        var convertedCoordinates = convertDimension ? coordinates.ConvertDimension() : coordinates;
+        var convertedCoordinates = convertDimension
+            ? coordinates.ConvertDimension()
+            : coordinates;
 
         return UseChunkCoordinates.TryGetValue(convertedCoordinates.Dimension, out var useChunkCoordinates) &&
                useChunkCoordinates

@@ -2,5 +2,8 @@
 
 public readonly record struct MinecraftCoordinates(MinecraftDimension Dimension, double X, double Z)
 {
-    public override string ToString() => $"{X} {Z}";
+    public int BlockX => (int)Math.Floor(X);
+    public int BlockZ => (int)Math.Floor(Z);
+
+    public override string ToString() => $"{BlockX} {BlockZ}";
 }
