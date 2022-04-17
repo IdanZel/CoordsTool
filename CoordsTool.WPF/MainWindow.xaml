@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoordsTool.WPF"
         mc:Ignorable="d"
-        Title="Coords Tool" Height="360" Width="640"
+        Title="Coords Tool" Height="360" Width="500"
         Background="#222" MinHeight="300" MinWidth="450" WindowStyle="None">
     <Window.Resources>
         <Style TargetType="RadioButton">
@@ -127,7 +127,7 @@
 
             <DataGrid.Columns>
                 <!-- Coordinates column -->
-                <DataGridTemplateColumn Width="11*" Header="Coordinates" IsReadOnly="True"
+                <DataGridTemplateColumn Width="7*" Header="Coordinates" IsReadOnly="True"
                                         HeaderStyle="{StaticResource InnerColumnHeader}">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
