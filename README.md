@@ -19,7 +19,7 @@ Based on [Antoine's AA-Texts tool](https://github.com/Antoine-MSL/AA-Texts) and 
 ## User Guide
 ### Automatically add coordinates (`F3`+`C`)
 
-If a set of coordinates in an `F3`+`C` format is currently present in your clipboard, they will be automatically added.
+If a set of coordinates in an `F3`+`C` format (e.g. `/execute in minecraft:overworld run tp @s 80.50 63.00 -76.50 0.00 0.00`) is currently present in your clipboard, they will be automatically added.
 Each time you press `F3`+`C` the new coordinates will be added.
 
 You can disable this feature by going to the settings (press the gear icon at the bottom-left of the window) and uncheck "Automatically add coordinates from clipboard".
@@ -31,11 +31,15 @@ You must also choose a dimension for these coordinates (Overworld/Nether/End) by
 
 You can attach a label to those coordinates using the "Label" text-box.
 
-Press the "Save" button to add the coordinates you entered.
+Press the "Save" button or press `Enter` to add the coordinates.
 
 ### Edit labels
 
-You can edit the label of an existing coordinates set by double clicking the "Label" cell in the coordinates' row. To save the label, press `Enter`.
+You can edit the label of existing coordinates by double clicking the "Label" cell in the coordinates' row. To save the label, press `Enter`.
+
+### Remove coordinates
+
+You can remove coordinates by clicking the red button at the right of the coordinates' row.
 
 ### Display chunk coordinates
 
