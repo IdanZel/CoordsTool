@@ -159,7 +159,7 @@
                 </DataGridTextColumn>
 
                 <!-- Time column -->
-                <DataGridTextColumn Width="5*" Header="Time" IsReadOnly="True"
+                <DataGridTextColumn x:Name="TimeColumn" Width="5*" Header="Time" IsReadOnly="True"
                                     HeaderStyle="{StaticResource InnerColumnHeader}"
                                     Binding="{Binding TimeAdded, StringFormat=HH:mm dd/MM/yyyy}" />
 

@@ -187,6 +187,8 @@ namespace CoordsTool.WPF
                 _clipboardMonitor.Disable();
             }
 
+            TimeColumn.Visibility = _settings.DisplayTimeColumn ? Visibility.Visible : Visibility.Hidden;
+
             UseChunkCoordinates[MinecraftDimension.Overworld] = _settings.UseChunkCoordinatesOverworld;
             UseChunkCoordinates[MinecraftDimension.Nether] = _settings.UseChunkCoordinatesNether;
             UseChunkCoordinates[MinecraftDimension.End] = _settings.UseChunkCoordinatesEnd;

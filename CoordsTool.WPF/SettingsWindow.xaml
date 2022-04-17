@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:userData="clr-namespace:CoordsTool.Core.UserData;assembly=CoordsTool.Core"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="80" Width="350" MouseDown="OnMouseDown"
+        Title="SettingsWindow" Height="120" Width="350" MouseDown="OnMouseDown"
         Background="#222" BorderBrush="White" BorderThickness="1" ResizeMode="NoResize" WindowStyle="None"
         d:DataContext="{d:DesignInstance userData:UserSettings}">
     <Grid>
@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- "Read from clipboard" checkbox -->
@@ -28,8 +29,14 @@
             <Label Content="Automatically add coordinates from clipboard" FontSize="14" />
         </StackPanel>
 
-        <!-- "Use chunk coordinates" checkboxes (for each dimension) -->
+        <!-- "Display time column" checkbox -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,10">
+            <CheckBox IsChecked="{Binding DisplayTimeColumn}" />
+            <Label Content="Display &quot;Time&quot; Column" FontSize="14" />
+        </StackPanel>
+
+        <!-- "Use chunk coordinates" checkboxes (for each dimension) -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,0,0,10">
             <StackPanel.Resources>
                 <!-- This style is very similar to the radio button style in MainWindow -->
                 <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
@@ -63,7 +70,7 @@
         </StackPanel>
 
         <!-- OK button -->
-        <Button Grid.Row="1" Style="{StaticResource WindowButton}" Margin="0,0,4,4" 
+        <Button Grid.Row="2" Style="{StaticResource WindowButton}" Margin="0,0,4,4" 
                 VerticalAlignment="Bottom" HorizontalAlignment="Right"
                 Background="Green" Foreground="LimeGreen" Click="OnClickOK">
             <Image Margin="1,1,0,0" Width="14" Height="14" Source="/Resources/Buttons/ok.png" />
