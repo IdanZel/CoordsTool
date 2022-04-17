@@ -13,7 +13,7 @@ public static class InputParser
 
     public static bool TryParseManualInput(string input, MinecraftDimension dimension, out MinecraftCoordinates coordinates)
     {
-        var inputParts = input.Split();
+        var inputParts = input.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
 
         if (inputParts.Length != 2 ||
             !double.TryParse(inputParts[0], out var x) ||
