@@ -22,11 +22,12 @@ public static class UserDataFileManager
         return JsonSerializer.Deserialize<List<UserCoordinates>>(data) ?? new List<UserCoordinates>();
     }
 
-    public static void WriteCoordinatesList(List<UserCoordinates> coordinatesList)
+    public static void WriteCoordinatesList(IEnumerable<UserCoordinates> coordinatesList)
     {
         CreateUserDataFolderIfNotExists();
 
-        var data = JsonSerializer.Serialize(coordinatesList);
+        var data = JsonSerializer.Serialize(coordinatesList as List<UserCoordinates> ??
+                                            new List<UserCoordinates>(coordinatesList));
         File.WriteAllText(UserDataFilePath, data);
     }
 
