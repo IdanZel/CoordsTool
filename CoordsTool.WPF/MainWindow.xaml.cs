@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,14 +33,20 @@ namespace CoordsTool.WPF
 
             var coordinatesList = UserDataFileManager.ReadCoordinatesList();
             CoordinatesList = new ObservableCollection<UserCoordinates>(coordinatesList);
+            CoordinatesList.CollectionChanged += OnCoordinatesListChanged;
 
             _settings = UserDataFileManager.ReadSettings();
             UpdateSettings();
         }
 
+        private void OnCoordinatesListChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            UserDataFileManager.WriteCoordinatesList(CoordinatesList);
+        }
+
         protected override void OnClosed(EventArgs e)
         {
-            UserDataFileManager.WriteCoordinatesList(new List<UserCoordinates>(CoordinatesList));
+            UserDataFileManager.WriteCoordinatesList(CoordinatesList);
             UserDataFileManager.WriteSettings(_settings);
 
             base.OnClosed(e);
@@ -192,6 +198,8 @@ namespace CoordsTool.WPF
             UseChunkCoordinates[MinecraftDimension.Overworld] = _settings.UseChunkCoordinatesOverworld;
             UseChunkCoordinates[MinecraftDimension.Nether] = _settings.UseChunkCoordinatesNether;
             UseChunkCoordinates[MinecraftDimension.End] = _settings.UseChunkCoordinatesEnd;
+
+            UserDataFileManager.WriteSettings(_settings);
 
             // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
             CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
