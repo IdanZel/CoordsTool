@@ -195,6 +195,8 @@ namespace CoordsTool.WPF
 
             TimeColumn.Visibility = _settings.DisplayTimeColumn ? Visibility.Visible : Visibility.Hidden;
 
+            Topmost = _settings.AlwaysOnTop;
+
             UseChunkCoordinates[MinecraftDimension.Overworld] = _settings.UseChunkCoordinatesOverworld;
             UseChunkCoordinates[MinecraftDimension.Nether] = _settings.UseChunkCoordinatesNether;
             UseChunkCoordinates[MinecraftDimension.End] = _settings.UseChunkCoordinatesEnd;
