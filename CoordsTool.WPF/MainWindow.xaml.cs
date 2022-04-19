@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,15 +32,10 @@ namespace CoordsTool.WPF
 
             var coordinatesList = UserDataFileManager.ReadCoordinatesList();
             CoordinatesList = new ObservableCollection<UserCoordinates>(coordinatesList);
-            CoordinatesList.CollectionChanged += OnCoordinatesListChanged;
+            CoordinatesList.CollectionChanged += (_, _) => UserDataFileManager.WriteCoordinatesList(CoordinatesList);
 
             _settings = UserDataFileManager.ReadSettings();
             UpdateSettings();
-        }
-
-        private void OnCoordinatesListChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            UserDataFileManager.WriteCoordinatesList(CoordinatesList);
         }
 
         protected override void OnClosed(EventArgs e)
@@ -50,18 +44,6 @@ namespace CoordsTool.WPF
             UserDataFileManager.WriteSettings(_settings);
 
             base.OnClosed(e);
-        }
-
-        private void AutoScrollCoordinatesTable()
-        {
-            if (VisualTreeHelper.GetChildrenCount(CoordinatesTable) == 0 || 
-                VisualTreeHelper.GetChild(CoordinatesTable, 0) is not Border border)
-            {
-                return;
-            }
-
-            var scrollViewer = VisualTreeHelper.GetChild(border, 0) as ScrollViewer;
-            scrollViewer?.ScrollToEnd();
         }
 
         private void OnClipboardUpdated(string text)
@@ -83,6 +65,42 @@ namespace CoordsTool.WPF
 
                 AutoScrollCoordinatesTable();
             });
+        }
+
+        private void OnTitleBarMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
+
+        private void OnClickMinimize(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void OnClickExit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnSaveCoordinates(sender, e);
+            }
+        }
+
+        private void OnDeleteCoordinates(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Button { DataContext: UserCoordinates coordinates })
+            {
+                return;
+            }
+
+            CoordinatesList.Remove(coordinates);
         }
 
         private void OnSaveCoordinates(object sender, RoutedEventArgs e)
@@ -111,6 +129,18 @@ namespace CoordsTool.WPF
 
             CoordinatesTextBox.Clear();
             LabelTextBox.Clear();
+        }
+
+        private void AutoScrollCoordinatesTable()
+        {
+            if (VisualTreeHelper.GetChildrenCount(CoordinatesTable) == 0 || 
+                VisualTreeHelper.GetChild(CoordinatesTable, 0) is not Border border)
+            {
+                return;
+            }
+
+            var scrollViewer = VisualTreeHelper.GetChild(border, 0) as ScrollViewer;
+            scrollViewer?.ScrollToEnd();
         }
 
         private bool TryGetSelectedDimension(out MinecraftDimension dimension)
@@ -156,24 +186,6 @@ namespace CoordsTool.WPF
             border.ClearValue(BorderBrushProperty);
         }
 
-        private void OnDeleteCoordinates(object sender, RoutedEventArgs e)
-        {
-            if (sender is not Button { DataContext: UserCoordinates coordinates })
-            {
-                return;
-            }
-
-            CoordinatesList.Remove(coordinates);
-        }
-
-        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                OnSaveCoordinates(sender, e);
-            }
-        }
-
         private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
         {
             var settingsWindow = new SettingsWindow(_settings, this);
@@ -205,24 +217,6 @@ namespace CoordsTool.WPF
 
             // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
             CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
-        }
-
-        private void OnClickMinimize(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void OnClickExit(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void OnTitleBarMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                DragMove();
-            }
         }
     }
 }
