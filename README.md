@@ -3,6 +3,8 @@ A tool for writing down Minecraft world coordinates which could be of help durin
 
 Based on [Antoine's AA-Texts tool](https://github.com/Antoine-MSL/AA-Texts) and inspired by [Ninjabrain bot](https://github.com/Ninjabrain1/Ninjabrain-Bot).
 
+Currently only available for Windows (planning to create a cross-platform version in the future).
+
 ## Features
 * Automatically add world coordinates in `F3`+`C` format from clipboard (can be disabled)
 * Manually add coordinates in `x z` format
@@ -46,6 +48,11 @@ You can remove coordinates by clicking the red button at the right of the coordi
 You can display chunk coordinates instead of regular coordinates. This setting is available seperatly for each dimension.
 To enable this, open the settings, and select for which dimensions you would like to display chunk coordinates (a white border around the dimension image means that dimension is selected).
 You can disable this by de-selecting the dimensions.
+
+## Possible Incompatibilities
+
+There might be an issue with automatic clipboard reading when another process also tries to read from the clipboard (e.g. Ninjabrain Bot).
+This should not cause the program to crash, but could potentially prevent `F3`+`C` coordinates from being added automatically.
 
 ---
 
