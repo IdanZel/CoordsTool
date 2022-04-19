@@ -1,4 +1,5 @@
-﻿using TextCopy;
+﻿using System.ComponentModel;
+using TextCopy;
 
 namespace CoordsTool.Core.IO;
 
@@ -44,7 +45,19 @@ public class ClipboardMonitor : IDisposable
 
     private async void ReadFromClipboard(object? state)
     {
-        var clipboardText = await ClipboardService.GetTextAsync();
+        string? clipboardText;
+
+        try
+        {
+            clipboardText = await ClipboardService.GetTextAsync();
+        }
+        catch (Win32Exception)
+        {
+            // If another process is trying to read from the clipboard (e.g. Ninjabrain Bot) an exception might be
+            // thrown from GetTextAsync(). In that case, we simply ignore the current attempt.
+            // This might need better handling in the future.
+            return;
+        }
 
         if (clipboardText is null || clipboardText.Equals(_lastClipboardText, StringComparison.Ordinal))
         {
