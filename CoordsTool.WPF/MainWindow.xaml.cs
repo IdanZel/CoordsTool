@@ -176,7 +176,7 @@ namespace CoordsTool.WPF
 
         private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            var settingsWindow = new SettingsWindow(_settings);
+            var settingsWindow = new SettingsWindow(_settings, this);
             settingsWindow.ShowDialog();
 
             UpdateSettings();
