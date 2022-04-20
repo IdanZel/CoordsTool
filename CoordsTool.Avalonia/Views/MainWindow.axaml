@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:CoordsTool.Avalonia.Converters"
-        mc:Ignorable="d" Width="500" Height="370"
+        mc:Ignorable="d" Width="540" Height="360" Background="#181818"
         x:Class="CoordsTool.Avalonia.Views.MainWindow"
         Icon="/Assets/Icons/map-icon.ico"
         Title="CoordsTool.Avalonia"
@@ -44,7 +44,7 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="Border" Background="{TemplateBinding Background}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Image Source="{TemplateBinding Content, Converter={StaticResource BitmapConverter}}" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -67,6 +67,77 @@
             <Label Content="Coords Tool" FontSize="14" FontWeight="Bold" Margin="4,0,0,0" VerticalAlignment="Center" />
         </Grid>
 
+        <!-- Middle row: Main content - Coordinates table -->
+        <DataGrid x:Name="CoordinatesTable" Grid.Row="1" Margin="10" Background="Transparent" BorderThickness="0"
+                  CanUserReorderColumns="False" CanUserResizeColumns="True" AutoGenerateColumns="False"
+                  GridLinesVisibility="All" VerticalGridLinesBrush="White" HorizontalGridLinesBrush="#888"
+                  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                  Items="{Binding CoordinatesList}">
+            <DataGrid.Styles>
+                <Style Selector="DataGridColumnHeader">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="SeparatorBrush" Value="White" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="BorderBrush" Value="White" />
+                </Style>
+
+                <Style Selector="DataGridCell">
+                    <Setter Property="FontSize" Value="13" />
+                </Style>
+
+                <Style Selector="DataGridCell.NoPadding">
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+
+                <Style Selector="DataGridCell.RightEdgeColumn">
+                    <!-- A hack for removing the border at the right edge of the grid: https://stackoverflow.com/a/27395182 -->
+                    <Setter Property="Margin" Value="0,0,-1,0" />
+                </Style>
+
+                <Style Selector="DataGridRow">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+
+                <Style Selector="DataGridColumnHeader.InnerColumnHeader">
+                    <Setter Property="BorderThickness" Value="0,0,1,1" />
+                </Style>
+            </DataGrid.Styles>
+
+            <DataGrid.Columns>
+                <!-- Coordinates column -->
+                <DataGridTemplateColumn Width="7*" Header="Coordinates" IsReadOnly="True" CellStyleClasses="NoPadding">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<local:CoordinatesDisplay
+                                    Coordinates="{Binding Coordinates, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Label column -->
+                <DataGridTextColumn Width="6*" Header="Label" Binding="{Binding Label}" />
+
+                <!-- Time column -->
+                <DataGridTextColumn Width="5*" Header="Time" IsReadOnly="True"
+                                    Binding="{Binding TimeAdded, StringFormat=\{0:HH:mm dd/MM/yyyy\}}" />
+
+                <!-- Delete button column -->
+                <DataGridTemplateColumn Width="1*" Header="" IsReadOnly="True" CanUserResize="False"
+                                        CellStyleClasses="RightEdgeColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="18" Height="18" Classes="ImageButton" Content="/Assets/Buttons/delete.png"
+                                    HorizontalAlignment="Center" Click="OnDeleteCoordinates" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bottom row: Manual input (coordinates and label) -->
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <StackPanel.Styles>
                 <Style Selector="Label">

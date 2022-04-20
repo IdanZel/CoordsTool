@@ -28,5 +28,10 @@ namespace CoordsTool.Avalonia.Views
         {
             
         }
+
+        private void OnDeleteCoordinates(object? sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
