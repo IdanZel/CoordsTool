@@ -47,4 +47,7 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AvaloniaResource>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\CoordsTool.Core\CoordsTool.Core.csproj" />
+    </ItemGroup>
 </Project>
