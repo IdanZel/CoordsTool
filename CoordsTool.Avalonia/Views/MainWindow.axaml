@@ -75,6 +75,7 @@
                   Items="{Binding CoordinatesList}">
             <DataGrid.Styles>
                 <Style Selector="DataGridColumnHeader">
+                    <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="FontSize" Value="13" />
                     <Setter Property="SeparatorBrush" Value="White" />
@@ -106,7 +107,7 @@
 
             <DataGrid.Columns>
                 <!-- Coordinates column -->
-                <DataGridTemplateColumn Width="7*" Header="Coordinates" IsReadOnly="True" CellStyleClasses="NoPadding">
+                <DataGridTemplateColumn Width="7*" Header="Coordinates" IsReadOnly="True"> <!-- CellStyleClasses="NoPadding"> -->
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -129,8 +130,8 @@
                                         CellStyleClasses="RightEdgeColumn">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="18" Height="18" Classes="ImageButton" Content="/Assets/Buttons/delete.png"
-                                    HorizontalAlignment="Center" Click="OnDeleteCoordinates" />
+                            <Button Classes="ImageButton" Width="18" Height="18" HorizontalAlignment="Center"
+                                    Content="/Assets/Buttons/delete.png" Click="OnDeleteCoordinates" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -144,6 +145,7 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="Width" Value="90" />
                     <Setter Property="HorizontalContentAlignment" Value="Right" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
                 <Style Selector="TextBox">
                     <Setter Property="Width" Value="250" />
