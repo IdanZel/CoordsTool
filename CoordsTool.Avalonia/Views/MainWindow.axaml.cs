@@ -33,5 +33,10 @@ namespace CoordsTool.Avalonia.Views
         {
             
         }
+
+        private void OnSettingsButtonClick(object? sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
