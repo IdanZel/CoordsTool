@@ -218,5 +218,13 @@ namespace CoordsTool.WPF
             // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
             CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
         }
+
+        private void OnEditCoordinatesTableLabelCell(object? sender, DataGridBeginningEditEventArgs e)
+        {
+            if (e.EditingEventArgs is not MouseButtonEventArgs)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

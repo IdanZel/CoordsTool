@@ -84,6 +84,7 @@
                   CanUserReorderColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"
                   VerticalGridLinesBrush="White" HorizontalGridLinesBrush="#888"
                   RowHeaderWidth="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                  BeginningEdit="OnEditCoordinatesTableLabelCell"
                   ItemsSource="{Binding CoordinatesList}" d:DataContext="{d:DesignInstance local:MainWindow}">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
