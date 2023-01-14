@@ -60,6 +60,9 @@ This should not cause the program to crash, but could potentially prevent `F3`+`
 
 ---
 
-The code in this repo isn't very well-designed due to my lack of experience with WPF and related design patterns.
-Many things were done in a "just make it work" fashion.
-If you have any suggestions or corrections, feel free to open an issue.
+## Ideas / Plans
+
+* Avalonia port (uploaded in-progress code to [`avalonia`](https://github.com/IdanZel/CoordsTool/tree/avalonia) branch)
+* Built-in yeet calculator
+
+
