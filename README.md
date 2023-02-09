@@ -45,7 +45,7 @@ You can remove coordinates by clicking the red button at the right of the coordi
 
 ### Display chunk coordinates
 
-You can display chunk coordinates instead of regular coordinates. This setting is available seperatly for each dimension.
+You can display chunk coordinates instead of regular coordinates. This setting is available separately for each dimension.
 To enable this, open the settings, and select for which dimensions you would like to display chunk coordinates (a white border around the dimension image means that dimension is selected).
 You can disable this by de-selecting the dimensions.
 
@@ -63,6 +63,6 @@ This should not cause the program to crash, but could potentially prevent `F3`+`
 ## Ideas / Plans
 
 * Avalonia port (uploaded in-progress code to [`avalonia`](https://github.com/IdanZel/CoordsTool/tree/avalonia) branch)
-* Built-in yeet calculator
+* ~~Built-in yeet calculator~~ (likely won't happen, available as console app [here](https://github.com/IdanZel/YeetConsole))
 
 
