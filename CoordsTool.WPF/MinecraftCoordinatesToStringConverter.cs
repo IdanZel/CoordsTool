@@ -15,6 +15,9 @@ public class MinecraftCoordinatesToStringConverter : IValueConverter
     // In either way, the goal is to apply changes to coordinates in the UI only (as opposed to changing the data).
     public static readonly Dictionary<MinecraftDimension, bool> UseChunkCoordinates = new();
 
+    // Another ugly static property for applying user settings
+    public static bool DisplayYLevel;
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not MinecraftCoordinates coordinates)
@@ -29,14 +32,23 @@ public class MinecraftCoordinatesToStringConverter : IValueConverter
 
     private MinecraftCoordinates ConvertCoordinates(MinecraftCoordinates coordinates, bool convertDimension)
     {
-        var convertedCoordinates = convertDimension
-            ? coordinates.ConvertDimension()
-            : coordinates;
+        if (!DisplayYLevel)
+        {
+            coordinates = coordinates.WithoutYLevel();
+        }
 
-        return UseChunkCoordinates.TryGetValue(convertedCoordinates.Dimension, out var useChunkCoordinates) &&
-               useChunkCoordinates
-            ? convertedCoordinates.ToChunkCoordinates()
-            : convertedCoordinates;
+        if (convertDimension)
+        {
+            coordinates = coordinates.ConvertDimension();
+        }
+
+        if (UseChunkCoordinates.TryGetValue(coordinates.Dimension, out var useChunkCoordinates) &&
+            useChunkCoordinates)
+        {
+            coordinates = coordinates.ToChunkCoordinates();
+        }
+
+        return coordinates;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

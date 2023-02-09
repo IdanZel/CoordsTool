@@ -8,4 +8,5 @@ public class UserSettings
     public bool UseChunkCoordinatesOverworld { get; set; }
     public bool UseChunkCoordinatesNether { get; set; }
     public bool UseChunkCoordinatesEnd { get; set; }
+    public bool DisplayYLevel { get; set; }
 }

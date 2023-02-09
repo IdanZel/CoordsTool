@@ -213,9 +213,11 @@ namespace CoordsTool.WPF
             UseChunkCoordinates[MinecraftDimension.Nether] = _settings.UseChunkCoordinatesNether;
             UseChunkCoordinates[MinecraftDimension.End] = _settings.UseChunkCoordinatesEnd;
 
+            DisplayYLevel = _settings.DisplayYLevel;
+
             UserDataFileManager.WriteSettings(_settings);
 
-            // This forces the CoordinatesList to refresh and apply the updated "UserChunkCoordinates" values
+            // This forces the CoordinatesList to refresh and apply the updated "UseChunkCoordinates" values
             CollectionViewSource.GetDefaultView(CoordinatesList).Refresh();
         }
 

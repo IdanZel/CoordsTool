@@ -11,7 +11,7 @@
              Background="Transparent" d:DataContext="{d:DesignInstance local:CoordinatesDisplay}">
     <UserControl.Resources>
         <system:Boolean x:Key="True">True</system:Boolean>
-        <local:MinecraftCoordinatesToStringConverter x:Key="CoordinatesConverter"></local:MinecraftCoordinatesToStringConverter>
+        <local:MinecraftCoordinatesToStringConverter x:Key="CoordinatesConverter" />
 
         <DataTemplate x:Key="OverworldCoordinates">
             <StackPanel Orientation="Horizontal">
