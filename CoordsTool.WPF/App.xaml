@@ -34,5 +34,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <SolidColorBrush x:Key="OpaqueBackground" Color="White" Opacity="0.2" />
     </Application.Resources>
 </Application>

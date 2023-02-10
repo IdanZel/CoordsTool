@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CoordsTool.Core\CoordsTool.Core.csproj" />
+      <ProjectReference Include="..\CoordsTool.Network\CoordsTool.Network.csproj" />
     </ItemGroup>
 
     <ItemGroup>

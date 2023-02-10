@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Media;
 using CoordsTool.Core.Coordinates;
 using CoordsTool.Core.IO;
 using CoordsTool.Core.UserData;
+using CoordsTool.Network;
 using static CoordsTool.WPF.MinecraftCoordinatesToStringConverter;
 
 namespace CoordsTool.WPF
@@ -19,9 +21,13 @@ namespace CoordsTool.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const int AssemblyVersionFieldCount = 3;
+
         private readonly UserSettings _settings;
         private readonly ClipboardMonitor _clipboardMonitor;
         private readonly Stack<UserCoordinates> _deletedCoordinates;
+
+        private string? _latestReleaseUrl;
 
         public ObservableCollection<UserCoordinates> CoordinatesList { get; }
 
@@ -39,6 +45,20 @@ namespace CoordsTool.WPF
 
             _settings = UserDataFileManager.ReadSettings();
             UpdateSettings();
+
+            _latestReleaseUrl = null;
+
+            var currentVersion = typeof(MainWindow).Assembly.GetName().Version?.ToString(AssemblyVersionFieldCount);
+            Updates.CheckForUpdates(currentVersion).ContinueWith(task =>
+            {
+                Debug.WriteLine(task.Exception);
+                (bool isUpdateAvailable, string? releaseUrl) = task.Result;
+
+                if (isUpdateAvailable)
+                {
+                    ShowUpdateAvailable(releaseUrl);
+                }
+            });
         }
 
         protected override void OnClosed(EventArgs e)
@@ -267,6 +287,24 @@ namespace CoordsTool.WPF
 
             var coordinates = _deletedCoordinates.Pop();
             CoordinatesList.Add(coordinates);
+        }
+
+        private void ShowUpdateAvailable(string latestReleaseUrl)
+        {
+            _latestReleaseUrl = latestReleaseUrl;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateAvailableButton.Visibility = Visibility.Visible;
+                UpdateAvailableButton.IsEnabled = true;
+            });
+        }
+
+        private void OnClickUpdateAvailable(object sender, RoutedEventArgs e)
+        {
+            if (_latestReleaseUrl is null) return;
+
+            Process.Start(new ProcessStartInfo(_latestReleaseUrl) { UseShellExecute = true });
         }
     }
 }

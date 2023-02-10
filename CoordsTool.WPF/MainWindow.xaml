@@ -63,7 +63,17 @@
 
         <!-- Custom title bar -->
         <Grid Grid.Row="0" Background="#111" MouseDown="OnTitleBarMouseDown">
-            <Label Content="Coords Tool" FontSize="14" FontWeight="Bold" Margin="4,0,0,0" VerticalAlignment="Top" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,0,0,0">
+                <Label Content="Coords Tool" FontSize="14" FontWeight="Bold" />
+
+                <!-- Update available button -->
+                <Button x:Name="UpdateAvailableButton" Style="{StaticResource WindowButton}"
+                        Background="Transparent" Margin="0,2,0,0" Foreground="{StaticResource OpaqueBackground}"
+                        Click="OnClickUpdateAvailable" Visibility="Hidden" IsEnabled="False"
+                        ToolTipService.InitialShowDelay="500" ToolTipService.ToolTip="New update available">
+                    <TextBlock Text="⦿" FontSize="22" Foreground="#FF8" VerticalAlignment="Center" Padding="0,0,1,2" />
+                </Button>
+            </StackPanel>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
                 <!-- Minimize button -->
