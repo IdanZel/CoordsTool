@@ -29,14 +29,10 @@
       <Resource Include="Resources\Textures\end-stone.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <None Remove="Resources\Buttons\exit.png" />
-      <None Remove="Resources\Buttons\delete.png" />
       <None Remove="Resources\Textures\grass-block.png" />
       <Resource Include="Resources\Textures\grass-block.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <None Remove="Resources\Buttons\ok.png" />
-      <None Remove="Resources\Buttons\minimize.png" />
       <None Remove="Resources\Textures\netherrack.png" />
       <Resource Include="Resources\Textures\netherrack.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -45,7 +41,6 @@
       <Resource Include="Resources\Buttons\clear.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <None Remove="Resources\Buttons\undo.png" />
     </ItemGroup>
 
     <ItemGroup>
