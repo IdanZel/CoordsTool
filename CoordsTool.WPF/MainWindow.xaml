@@ -43,6 +43,9 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="BorderThickness" Value="1" TargetName="Border" />
                             </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="2" TargetName="Border" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
