@@ -228,5 +228,28 @@ namespace CoordsTool.WPF
                 e.Cancel = true;
             }
         }
+
+        private void OnClearAllDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CoordinatesList.Clear();
+        }
+
+        private void OnClearAllSingleClick(object sender, RoutedEventArgs e)
+        {
+            SetToolTipIsOpen(sender, true);
+        }
+
+        private void OnClearAllMouseLeave(object sender, MouseEventArgs e)
+        {
+            SetToolTipIsOpen(sender, false);
+        }
+
+        private static void SetToolTipIsOpen(object sender, bool isOpen)
+        {
+            if (sender is Button { ToolTip: ToolTip toolTip })
+            {
+                toolTip.IsOpen = isOpen;
+            }
+        }
     }
 }
