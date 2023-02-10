@@ -23,7 +23,7 @@ public static class CoordinatesExtensions
     public static MinecraftCoordinates ToChunkCoordinates(this MinecraftCoordinates coordinates) =>
         new(coordinates.Dimension,
             Math.Floor(coordinates.BlockX / 16.0),
-            coordinates.Y,
+            null, // Chunk coordinates won't contain Y level 
             Math.Floor(coordinates.BlockZ / 16.0));
 
     public static MinecraftCoordinates WithoutYLevel(this MinecraftCoordinates coordinates) =>
