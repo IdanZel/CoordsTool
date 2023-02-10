@@ -39,9 +39,11 @@ Press the "Save" button or press `Enter` to add the coordinates.
 
 You can edit the label of existing coordinates by double clicking the "Label" cell in the coordinates' row. To save the label, press `Enter`.
 
-### Remove coordinates
+### Remove / Restore coordinates
 
-You can remove coordinates by clicking the red button at the right of the coordinates' row.
+You can remove coordinates by clicking the red button at the right of the coordinates' row. You can also remove all coordinates currently saved by double-clicking the trashcan button.
+
+You can restore deleted coordinates by clicking the restore button (next to the "Save" button). This will re-add one set of coordinates each time, starting with the latest coordinates deleted.
 
 ### Display chunk coordinates
 
