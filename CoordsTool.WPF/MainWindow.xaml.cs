@@ -49,16 +49,7 @@ namespace CoordsTool.WPF
             _latestReleaseUrl = null;
 
             var currentVersion = typeof(MainWindow).Assembly.GetName().Version?.ToString(AssemblyVersionFieldCount);
-            Updates.CheckForUpdates(currentVersion).ContinueWith(task =>
-            {
-                Debug.WriteLine(task.Exception);
-                (bool isUpdateAvailable, string? releaseUrl) = task.Result;
-
-                if (isUpdateAvailable)
-                {
-                    ShowUpdateAvailable(releaseUrl);
-                }
-            });
+            Updates.CheckForUpdates(currentVersion).ContinueWith(OnCheckForUpdatesCompleted);
         }
 
         protected override void OnClosed(EventArgs e)
@@ -287,6 +278,22 @@ namespace CoordsTool.WPF
 
             var coordinates = _deletedCoordinates.Pop();
             CoordinatesList.Add(coordinates);
+        }
+
+        private void OnCheckForUpdatesCompleted(Task<(bool IsAvailable, string ReleaseUrl)> task)
+        {
+            if (task.IsFaulted)
+            {
+                Trace.WriteLine("Updates.CheckForUpdates threw an exception: " + task.Exception);
+                return;
+            }
+
+            (bool isUpdateAvailable, string? releaseUrl) = task.Result;
+
+            if (isUpdateAvailable)
+            {
+                ShowUpdateAvailable(releaseUrl);
+            }
         }
 
         private void ShowUpdateAvailable(string latestReleaseUrl)

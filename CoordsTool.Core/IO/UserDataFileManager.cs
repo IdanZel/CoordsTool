@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using CoordsTool.Core.UserData;
 
 namespace CoordsTool.Core.IO;
@@ -24,10 +25,14 @@ public static class UserDataFileManager
 
     public static void WriteCoordinatesList(IEnumerable<UserCoordinates> coordinatesList)
     {
+        var userCoordinatesList = coordinatesList as List<UserCoordinates> ?? 
+                                  new List<UserCoordinates>(coordinatesList);
+
+        Trace.WriteLine("Writing coordinates list to JSON file; Count: " + userCoordinatesList.Count);
+
         CreateUserDataFolderIfNotExists();
 
-        var data = JsonSerializer.Serialize(coordinatesList as List<UserCoordinates> ??
-                                            new List<UserCoordinates>(coordinatesList));
+        var data = JsonSerializer.Serialize(userCoordinatesList);
         File.WriteAllText(UserDataFilePath, data);
     }
 
@@ -44,6 +49,7 @@ public static class UserDataFileManager
 
     public static void WriteSettings(UserSettings settings)
     {
+        Trace.WriteLine("Writing user settings to JSON file");
         CreateUserDataFolderIfNotExists();
 
         var data = JsonSerializer.Serialize(settings);
