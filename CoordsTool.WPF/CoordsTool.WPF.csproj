@@ -30,25 +30,13 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="Resources\Buttons\exit.png" />
-      <Resource Include="Resources\Buttons\exit.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Buttons\delete.png" />
-      <Resource Include="Resources\Buttons\delete.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Textures\grass-block.png" />
       <Resource Include="Resources\Textures\grass-block.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="Resources\Buttons\ok.png" />
-      <Resource Include="Resources\Buttons\ok.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Buttons\minimize.png" />
-      <Resource Include="Resources\Buttons\minimize.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Textures\netherrack.png" />
       <Resource Include="Resources\Textures\netherrack.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -58,9 +46,6 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="Resources\Buttons\undo.png" />
-      <Resource Include="Resources\Buttons\undo.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
     </ItemGroup>
 
     <ItemGroup>

@@ -67,7 +67,7 @@
                 <Label Content="Coords Tool" FontSize="14" FontWeight="Bold" />
 
                 <!-- Update available button -->
-                <Button x:Name="UpdateAvailableButton" Style="{StaticResource WindowButton}"
+                <Button x:Name="UpdateAvailableButton" Style="{StaticResource TransparentButton}"
                         Background="Transparent" Margin="0,2,0,0" Foreground="{StaticResource OpaqueBackground}"
                         Click="OnClickUpdateAvailable" Visibility="Hidden" IsEnabled="False"
                         ToolTipService.InitialShowDelay="500" ToolTipService.ToolTip="New update available">
@@ -77,15 +77,15 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
                 <!-- Minimize button -->
-                <Button Style="{StaticResource WindowButton}" Margin="0,4,4,0" Background="#333" Foreground="#555"
+                <Button Style="{StaticResource TransparentButton}" Margin="0,4,4,0" Background="#333" Foreground="#555"
                         Click="OnClickMinimize">
-                    <Image Width="14" Height="14" Source="/Resources/Buttons/minimize.png" />
+                    <TextBlock Text="_" FontSize="28" Foreground="White" VerticalAlignment="Center" Padding="0,0,0,19" />
                 </Button>
 
                 <!-- Exit button -->
-                <Button Style="{StaticResource WindowButton}" Margin="0,4,4,0" Background="DarkRed" Foreground="Red"
+                <Button Style="{StaticResource TransparentButton}" Margin="0,4,4,0" Background="DarkRed" Foreground="Red"
                         Click="OnClickExit">
-                    <Image Width="16" Height="16" Source="/Resources/Buttons/exit.png" />
+                    <TextBlock Text="✖" FontSize="14" Foreground="White" VerticalAlignment="Center" Padding="0,0,0,2" />
                 </Button>
             </StackPanel>
         </Grid>
@@ -189,6 +189,7 @@
 
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
+                            <!-- Clear all button -->
                             <Button Width="18" Height="18" Style="{StaticResource ImageButton}"
                                     Click="OnClearAllSingleClick" MouseDoubleClick="OnClearAllDoubleClick"
                                     MouseLeave="OnClearAllMouseLeave" ToolTipService.InitialShowDelay="500">
@@ -209,8 +210,14 @@
 
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Width="18" Height="18" Style="{StaticResource ImageButton}" Click="OnDeleteCoordinates">
-                                <Image Source="/Resources/Buttons/delete.png" />
+                            <!--  Remove button -->
+                            <Button Width="18" Height="18" Style="{StaticResource TransparentButton}" 
+                                    Background="Transparent"
+                                    Click="OnDeleteCoordinates">
+                                <Button.Foreground>
+                                    <SolidColorBrush Color="IndianRed" Opacity="0.4" />
+                                </Button.Foreground>
+                                <TextBlock Text="✕" FontSize="15" Foreground="OrangeRed" VerticalAlignment="Center" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -253,14 +260,21 @@
                 <TextBox x:Name="LabelTextBox" KeyDown="OnTextBoxKeyDown" TabIndex="1" />
             </StackPanel>
 
-            <!-- Save button -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="10,10" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates"
-                        TabIndex="2"/>
+                <!-- Save button -->
+                <Button Style="{StaticResource TransparentButton}" Click="OnSaveCoordinates"
+                        Margin="10,10" FontSize="14" Width="60" Height="30"
+                        Background="Transparent" Foreground="{StaticResource OpaqueBackground}"
+                        BorderThickness="2" BorderBrush="White" TabIndex="2">
+                    <TextBlock Text="Save" FontSize="14" Foreground="White" VerticalAlignment="Center" Padding="0,0,2,3" />
 
-                <Button Width="18" Height="18" Style="{StaticResource ImageButton}" Click="OnClickRestore"
+                </Button>
+
+                <!-- Restore button -->
+                <Button Style="{StaticResource TransparentButton}" Click="OnClickRestore"
+                        Background="Transparent" Foreground="{StaticResource OpaqueBackground}"
                         ToolTip="Restore deleted coordinates" ToolTipService.InitialShowDelay="500">
-                    <Image Source="/Resources/Buttons/undo.png" />
+                    <TextBlock Text="⮌" FontSize="22" Foreground="White" VerticalAlignment="Center" Padding="0,3,2,6" />
                 </Button>
             </StackPanel>
         </StackPanel>
