@@ -7,10 +7,11 @@ Currently only available for Windows (planning to create a cross-platform versio
 
 ## Features
 * Automatically add world coordinates in `F3`+`C` format from clipboard (can be disabled)
-* Manually add coordinates in `x z` format
+* Manually add coordinates in `x z` or `x y z` format
 * Add and edit labels for saved coordinates
 * Display coordinates' original dimension and automatically convert between Overworld and Nether coordinates
 * Display coordinates as either regular or chunk coordinates
+* Display or hide Y-level
 * Display the time in which the coordinates were added
 
 ## Legend
@@ -24,11 +25,19 @@ Currently only available for Windows (planning to create a cross-platform versio
 If a set of coordinates in an `F3`+`C` format (e.g. `/execute in minecraft:overworld run tp @s 80.50 63.00 -76.50 0.00 0.00`) is currently present in your clipboard, they will be automatically added.
 Each time you press `F3`+`C` the new coordinates will be added.
 
-You can disable this feature by going to the settings (press the gear icon at the bottom-left of the window) and uncheck "Automatically add coordinates from clipboard".
+You can disable this feature in settings (gear icon at the bottom-left of the window).
 
 ### Manually add coordinates
 
-You can manually add coordinates by entering them into the "Coordinates" text-box in an `x z` format (where `x` and `z` are decimal numbers).
+You can manually add coordinates by entering them into the "Coordinates" text-box in one of these formats:
+* `x z`
+* `x y z`
+
+`x`, `y` and `z` are decimal numbers.
+
+Entering Y-level is optional. Y-level display can be enabled in settings.
+For manual input - if Y-level isn't entered, only `x` and `z` values will be displayed.
+
 You must also choose a dimension for these coordinates (Overworld/Nether/End) by selecting the appropriate dimension image.
 
 You can attach a label to those coordinates using the "Label" text-box.
@@ -48,7 +57,7 @@ You can restore deleted coordinates by clicking the restore button (next to the 
 ### Display chunk coordinates
 
 You can display chunk coordinates instead of regular coordinates. This setting is available separately for each dimension.
-To enable this, open the settings, and select for which dimensions you would like to display chunk coordinates (a white border around the dimension image means that dimension is selected).
+To enable this, open the settings, and select for which dimensions you would like to display chunk coordinates.
 You can disable this by de-selecting the dimensions.
 
 ## Possible Incompatibilities
@@ -64,6 +73,7 @@ This should not cause the program to crash, but could potentially prevent `F3`+`
 
 ## Ideas / Plans
 
+* Co-op support (needs planning)
 * Avalonia port (uploaded in-progress code to [`avalonia`](https://github.com/IdanZel/CoordsTool/tree/avalonia) branch)
 * ~~Built-in yeet calculator~~ (likely won't happen, available as console app [here](https://github.com/IdanZel/YeetConsole))
 
