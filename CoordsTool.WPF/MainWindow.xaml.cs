@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,12 +21,14 @@ namespace CoordsTool.WPF
     {
         private readonly UserSettings _settings;
         private readonly ClipboardMonitor _clipboardMonitor;
+        private readonly Stack<UserCoordinates> _deletedCoordinates;
 
         public ObservableCollection<UserCoordinates> CoordinatesList { get; }
 
         public MainWindow()
         {
             _clipboardMonitor = new ClipboardMonitor(OnClipboardUpdated);
+            _deletedCoordinates = new Stack<UserCoordinates>();
 
             InitializeComponent();
             DataContext = this;
@@ -101,6 +104,7 @@ namespace CoordsTool.WPF
             }
 
             CoordinatesList.Remove(coordinates);
+            _deletedCoordinates.Push(coordinates);
         }
 
         private void OnSaveCoordinates(object sender, RoutedEventArgs e)
@@ -231,6 +235,11 @@ namespace CoordsTool.WPF
 
         private void OnClearAllDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            foreach (var coordinates in CoordinatesList)
+            {
+                _deletedCoordinates.Push(coordinates);
+            }
+
             CoordinatesList.Clear();
         }
 
@@ -250,6 +259,14 @@ namespace CoordsTool.WPF
             {
                 toolTip.IsOpen = isOpen;
             }
+        }
+
+        private void OnClickRestore(object sender, RoutedEventArgs e)
+        {
+            if (_deletedCoordinates.Count == 0) return;
+
+            var coordinates = _deletedCoordinates.Pop();
+            CoordinatesList.Add(coordinates);
         }
     }
 }

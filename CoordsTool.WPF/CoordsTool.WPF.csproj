@@ -56,6 +56,10 @@
       <Resource Include="Resources\Buttons\clear.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
+      <None Remove="Resources\Buttons\undo.png" />
+      <Resource Include="Resources\Buttons\undo.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

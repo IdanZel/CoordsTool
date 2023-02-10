@@ -240,8 +240,15 @@
             </StackPanel>
 
             <!-- Save button -->
-            <Button Margin="0,10,0,0" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates"
-                    TabIndex="2"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="10,10" Content="Save" FontSize="14" Width="60" Height="30" Click="OnSaveCoordinates"
+                        TabIndex="2"/>
+
+                <Button Width="18" Height="18" Style="{StaticResource ImageButton}" Click="OnClickRestore"
+                        ToolTip="Restore deleted coordinates" ToolTipService.InitialShowDelay="500">
+                    <Image Source="/Resources/Buttons/undo.png" />
+                </Button>
+            </StackPanel>
         </StackPanel>
 
         <!-- Settings button -->
