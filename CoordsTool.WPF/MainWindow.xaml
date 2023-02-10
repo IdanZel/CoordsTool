@@ -277,7 +277,7 @@
                 <Button Style="{StaticResource TransparentButton}" Click="OnClickRestore"
                         Background="Transparent" Foreground="{StaticResource OpaqueBackground}"
                         ToolTip="Restore deleted coordinates" ToolTipService.InitialShowDelay="500">
-                    <TextBlock Text="⮌" FontSize="22" Foreground="White" VerticalAlignment="Center" Padding="0,3,2,6" />
+                    <TextBlock Text="⮌" FontSize="22" Foreground="White" VerticalAlignment="Center" Padding="0,4,3,7" />
                 </Button>
             </StackPanel>
         </StackPanel>
