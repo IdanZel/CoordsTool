@@ -10,6 +10,7 @@
         <AssemblyVersion>1.0.8</AssemblyVersion>
         <AssemblyName>$(Product)-$(AssemblyVersion)</AssemblyName>
         <ApplicationIcon>Resources\Icons\map-icon.ico</ApplicationIcon>
+        <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
         <PublishSingleFile>True</PublishSingleFile>
         <EnableCompressionInSingleFile>True</EnableCompressionInSingleFile>
         <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
