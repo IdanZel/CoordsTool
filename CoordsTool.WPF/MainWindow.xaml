@@ -98,9 +98,6 @@
                   CanUserReorderColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"
                   VerticalGridLinesBrush="White" HorizontalGridLinesBrush="#888"
                   RowHeaderWidth="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
-                  dd:DragDrop.DropScrollingMode="VerticalOnly"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True"
                   BeginningEdit="OnEditCoordinatesTableLabelCell"
                   ItemsSource="{Binding CoordinatesList}" d:DataContext="{d:DesignInstance local:MainWindow}">
             <DataGrid.Resources>
