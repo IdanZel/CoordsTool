@@ -262,12 +262,9 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <!-- Save button -->
-                <Button Style="{StaticResource TransparentButton}" Click="OnSaveCoordinates"
-                        Margin="10,10" FontSize="14" Width="60" Height="30"
-                        Background="Transparent" Foreground="{StaticResource OpaqueBackground}"
-                        BorderThickness="2" BorderBrush="White" TabIndex="2">
-                    <TextBlock Text="Save" FontSize="14" Foreground="White" VerticalAlignment="Center" Padding="0,0,2,3" />
-
+                <Button Style="{StaticResource TransparentTextButton}" Click="OnSaveCoordinates"
+                        Width="60" Height="30" TabIndex="2">
+                    <TextBlock Text="Save" Style="{StaticResource ButtonText}" />
                 </Button>
 
                 <!-- Restore button -->
