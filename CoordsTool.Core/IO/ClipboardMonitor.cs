@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using TextCopy;
 
 namespace CoordsTool.Core.IO;
@@ -52,11 +51,10 @@ public class ClipboardMonitor : IDisposable
         {
             clipboardText = await ClipboardService.GetTextAsync();
         }
-        catch (Win32Exception e)
+        catch (Exception e)
         {
             // If another process is trying to read from the clipboard (e.g. Ninjabrain Bot) an exception might be
             // thrown from GetTextAsync(). In that case, we simply ignore the current attempt.
-            // This might need better handling in the future.
             Trace.WriteLine("ClipboardService.GetTextAsync threw an exception: " + e);
             return;
         }
