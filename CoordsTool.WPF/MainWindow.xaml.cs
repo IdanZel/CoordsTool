@@ -5,10 +5,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using CoordsTool.Core;
 using CoordsTool.Core.Coordinates;
 using CoordsTool.Core.IO;
 using CoordsTool.Core.UserData;
@@ -71,7 +73,7 @@ namespace CoordsTool.WPF
                 _ => null
             };
 
-            Trace.WriteLine("An exception was thrown by " + sender + Environment.NewLine + exception);
+            TraceWrapper.WriteLine("An exception was thrown by " + sender + Environment.NewLine + exception);
         }
 
         protected override void OnClosed(EventArgs e)
@@ -306,7 +308,7 @@ namespace CoordsTool.WPF
         {
             if (task.IsFaulted)
             {
-                Trace.WriteLine("Updates.CheckForUpdates threw an exception: " + task.Exception);
+                TraceWrapper.WriteLine("Updates.CheckForUpdates threw an exception: " + task.Exception);
                 return;
             }
 

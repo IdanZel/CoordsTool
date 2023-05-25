@@ -55,7 +55,7 @@ public class ClipboardMonitor : IDisposable
         {
             // If another process is trying to read from the clipboard (e.g. Ninjabrain Bot) an exception might be
             // thrown from GetTextAsync(). In that case, we simply ignore the current attempt.
-            Trace.WriteLine("ClipboardService.GetTextAsync threw an exception: " + e);
+            TraceWrapper.WriteLine("ClipboardService.GetTextAsync threw an exception: " + e);
             return;
         }
 

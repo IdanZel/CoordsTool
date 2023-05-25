@@ -28,7 +28,7 @@ public static class UserDataFileManager
         var userCoordinatesList = coordinatesList as List<UserCoordinates> ?? 
                                   new List<UserCoordinates>(coordinatesList);
 
-        Trace.WriteLine("Writing coordinates list to JSON file; Count: " + userCoordinatesList.Count);
+        TraceWrapper.WriteLine("Writing coordinates list to JSON file; Count: " + userCoordinatesList.Count);
 
         CreateUserDataFolderIfNotExists();
 
@@ -49,7 +49,7 @@ public static class UserDataFileManager
 
     public static void WriteSettings(UserSettings settings)
     {
-        Trace.WriteLine("Writing user settings to JSON file");
+        TraceWrapper.WriteLine("Writing user settings to JSON file");
         CreateUserDataFolderIfNotExists();
 
         var data = JsonSerializer.Serialize(settings);
