@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using CoordsTool.Core.Coordinates;
 using CoordsTool.Core.IO;
 using CoordsTool.Core.UserData;
@@ -33,6 +34,14 @@ namespace CoordsTool.WPF
 
         public MainWindow()
         {
+            Trace.AutoFlush = true;
+            Trace.Listeners.Add(new TextWriterTraceListener($"{DateTime.Now:yyyyMMdd-HHmmss}.log"));
+
+            AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
+            Dispatcher.UnhandledException += ExceptionHandler;
+            Application.Current.DispatcherUnhandledException += ExceptionHandler;
+            TaskScheduler.UnobservedTaskException += ExceptionHandler;
+
             _clipboardMonitor = new ClipboardMonitor(OnClipboardUpdated);
             _deletedCoordinates = new Stack<UserCoordinates>();
 
@@ -50,6 +59,19 @@ namespace CoordsTool.WPF
 
             var currentVersion = typeof(MainWindow).Assembly.GetName().Version?.ToString(AssemblyVersionFieldCount);
             Updates.CheckForUpdates(currentVersion).ContinueWith(OnCheckForUpdatesCompleted);
+        }
+
+        private static void ExceptionHandler(object? sender, EventArgs args)
+        {
+            var exception = args switch
+            {
+                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
+                DispatcherUnhandledExceptionEventArgs dispatcherUnhandledArgs => dispatcherUnhandledArgs.Exception,
+                UnobservedTaskExceptionEventArgs unobservedArgs => unobservedArgs.Exception,
+                _ => null
+            };
+
+            Trace.WriteLine("An exception was thrown by " + sender + Environment.NewLine + exception);
         }
 
         protected override void OnClosed(EventArgs e)
