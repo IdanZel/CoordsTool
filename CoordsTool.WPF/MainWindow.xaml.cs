@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -56,6 +55,7 @@ namespace CoordsTool.WPF
 
             _settings = UserDataFileManager.ReadSettings();
             UpdateSettings();
+            ApplyDisplaySettings();
 
             _latestReleaseUrl = null;
 
@@ -78,6 +78,8 @@ namespace CoordsTool.WPF
 
         protected override void OnClosed(EventArgs e)
         {
+            SaveDisplaySettings();
+
             UserDataFileManager.WriteCoordinatesList(CoordinatesList);
             UserDataFileManager.WriteSettings(_settings);
 
@@ -336,6 +338,45 @@ namespace CoordsTool.WPF
             if (_latestReleaseUrl is null) return;
 
             Process.Start(new ProcessStartInfo(_latestReleaseUrl) { UseShellExecute = true });
+        }
+
+        private void SaveDisplaySettings()
+        {
+            var columns = CoordinatesTable.Columns;
+
+            _settings.WindowHeight = Height;
+            _settings.WindowWidth = Width;
+            _settings.TopPosition = Top;
+            _settings.LeftPosition = Left;
+            _settings.RelativeCoordinatesColumnWidth = columns[0].Width.Value;
+            _settings.RelativeLabelsColumnWidth = columns[1].Width.Value;
+            _settings.RelativeTimeColumnWidth = columns[2].Width.Value;
+        }
+
+        private void ApplyDisplaySettings()
+        {
+            if (_settings.WindowHeight != 0 && _settings.WindowWidth != 0)
+            {
+                Height = _settings.WindowHeight;
+                Width = _settings.WindowWidth;
+            }
+
+            if (_settings.TopPosition != 0 && _settings.LeftPosition != 0)
+            {
+                Top = _settings.TopPosition;
+                Left = _settings.LeftPosition;
+            }
+
+            if (_settings.RelativeCoordinatesColumnWidth == 0 || _settings.RelativeLabelsColumnWidth == 0 ||
+                _settings.RelativeTimeColumnWidth == 0)
+            {
+                return;
+            }
+
+            var columns = CoordinatesTable.Columns;
+            columns[0].Width = new DataGridLength(_settings.RelativeCoordinatesColumnWidth, DataGridLengthUnitType.Star);
+            columns[1].Width = new DataGridLength(_settings.RelativeLabelsColumnWidth, DataGridLengthUnitType.Star);
+            columns[2].Width = new DataGridLength(_settings.RelativeTimeColumnWidth, DataGridLengthUnitType.Star);
         }
     }
 }
