@@ -3,8 +3,6 @@ A tool for writing down Minecraft world coordinates which could be of help durin
 
 Based on [Antoine's AA-Texts tool](https://github.com/Antoine-MSL/AA-Texts) and inspired by [Ninjabrain bot](https://github.com/Ninjabrain1/Ninjabrain-Bot).
 
-Currently only available for Windows (planning to create a cross-platform version in the future).
-
 ## Features
 * Automatically add world coordinates in `F3`+`C` format from clipboard (can be disabled)
 * Manually add coordinates in `x z` or `x y z` format
@@ -70,11 +68,3 @@ This should not cause the program to crash, but could potentially prevent `F3`+`
 #### If you experience any bugs or problems when using this tool, please open an issue detailing the problem.
 
 ---
-
-## Ideas / Plans
-
-* Co-op support (needs planning)
-* Avalonia port (uploaded in-progress code to [`avalonia`](https://github.com/IdanZel/CoordsTool/tree/avalonia) branch)
-* ~~Built-in yeet calculator~~ (likely won't happen, available as console app [here](https://github.com/IdanZel/YeetConsole))
-
-
